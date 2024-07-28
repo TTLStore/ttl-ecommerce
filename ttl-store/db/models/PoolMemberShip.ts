@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+export const POOL_ROLES = ["admin", "member"]
 
 const poolMembershipSchema = new mongoose.Schema({
   poolId: { type: mongoose.Schema.Types.ObjectId, ref: "Pool", required: true },
@@ -7,7 +8,7 @@ const poolMembershipSchema = new mongoose.Schema({
   leftAt: { type: Date },
   role: {
     type: String,
-    enum: ["admin", "member"],
+    enum: POOL_ROLES,
     default: "member",
   },
 });

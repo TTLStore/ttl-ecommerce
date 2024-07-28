@@ -1,0 +1,429 @@
+{
+  "users" : [
+    {
+      "id": 1,
+      "name": "John Doe",
+      "email": "john.doe@example.com",
+      "image": "https://example.com/images/john.jpg",
+      "createdAt": "2023-01-15T08:00:00Z",
+      "updatedAt": "2023-06-01T12:00:00Z",
+      "emailVerified": true
+    },
+    {
+      "id": 2,
+      "name": "Jane Smith",
+      "email": "jane.smith@example.com",
+      "image": "https://example.com/images/jane.jpg",
+      "createdAt": "2023-02-10T09:30:00Z",
+      "updatedAt": "2023-06-05T14:45:00Z",
+      "emailVerified": false
+    },
+    {
+      "id": 3,
+      "name": "Alice Johnson",
+      "email": "alice.johnson@example.com",
+      "image": "https://example.com/images/alice.jpg",
+      "createdAt": "2023-03-22T11:15:00Z",
+      "updatedAt": "2023-06-10T10:20:00Z",
+      "emailVerified": true
+    },
+    {
+      "id": 4,
+      "name": "Bob Brown",
+      "email": "bobbrow@example.com",
+      "image": "https://example.com/images/bob.jpg",
+      "createdAt": "2023-04-05T13:00:00Z",
+      "updatedAt": "2023-06-15T09:30:00Z",
+      "emailVerified": true
+    }
+  ],
+  "pools" :   [
+    {
+      "id": 1,
+      "poolType": "Youtube",
+      "createdBy": 1,
+      "createdAt": "2023-04-05T13:00:00Z",
+      "maxMembers": 10,
+      "currentMembers": 5,
+      "isPublic": true,
+      "isOpen": true,
+      "description": "This is a pool for sharing Youtube Premium subscription."
+    },
+    {
+      "id": 2,
+      "poolType": "Google",
+      "createdBy": 2,
+      "createdAt": "2023-05-15T15:30:00Z",
+      "maxMembers": 8,
+      "currentMembers": 3,
+      "isPublic": false,
+      "isOpen": true,
+      "description": "This is a pool for sharing Google One subscription."
+    },
+    {
+      "id": 3,
+      "poolType": "iCloud",
+      "createdBy": 3,
+      "createdAt": "2023-06-01T10:45:00Z",
+      "maxMembers": 6,
+      "currentMembers": 4,
+      "isPublic": true,
+      "isOpen": false,
+      "description": "This is a pool for sharing iCloud storage."
+    },
+    {
+      "id": 4,
+      "poolType": "Youtube",
+      "createdBy": 2,
+      "createdAt": "2023-06-10T11:00:00Z",
+      "maxMembers": 15,
+      "currentMembers": 10,
+      "isPublic": false,
+      "isOpen": true,
+      "description": "This is a pool for sharing Youtube Premium subscription."
+    },
+    {
+      "id": 5,
+      "poolType": "Google",
+      "createdBy": 1,
+      "createdAt": "2023-06-12T08:30:00Z",
+      "maxMembers": 12,
+      "currentMembers": 6,
+      "isPublic": true,
+      "isOpen": true,
+      "description": "This is a pool for sharing Google One subscription."
+    },
+    {
+      "id": 6,
+      "poolType": "iCloud",
+      "createdBy": 2,
+      "createdAt": "2023-06-15T14:20:00Z",
+      "maxMembers": 10,
+      "currentMembers": 7,
+      "isPublic": false,
+      "isOpen": true,
+      "description": "This is a pool for sharing iCloud storage."
+    },
+    {
+      "id": 7,
+      "poolType": "Youtube",
+      "createdBy": 3,
+      "createdAt": "2023-06-18T09:40:00Z",
+      "maxMembers": 20,
+      "currentMembers": 15,
+      "isPublic": true,
+      "isOpen": false,
+      "description": "This is a pool for sharing Youtube Premium subscription."
+    },
+    {
+      "id": 8,
+      "poolType": "Google",
+      "createdBy": 1,
+      "createdAt": "2023-06-20T10:10:00Z",
+      "maxMembers": 5,
+      "currentMembers": 3,
+      "isPublic": false,
+      "isOpen": true,
+      "description": "This is a pool for sharing Google One subscription."
+    },
+    {
+      "id": 9,
+      "poolType": "iCloud",
+      "createdBy": 3,
+      "createdAt": "2023-06-25T12:00:00Z",
+      "maxMembers": 8,
+      "currentMembers": 5,
+      "isPublic": true,
+      "isOpen": true,
+      "description": "This is a pool for sharing iCloud storage."
+    },
+    {
+      "id": 10,
+      "poolType": "Youtube",
+      "createdBy": 1,
+      "createdAt": "2023-06-30T16:30:00Z",
+      "maxMembers": 10,
+      "currentMembers": 6,
+      "isPublic": false,
+      "isOpen": true,
+      "description": "This is a pool for sharing Youtube Premium subscription."
+    },
+    {
+      "id": 11,
+      "poolType": "Google",
+      "createdBy": 2,
+      "createdAt": "2023-07-05T14:00:00Z",
+      "maxMembers": 7,
+      "currentMembers": 4,
+      "isPublic": true,
+      "isOpen": false,
+      "description": "This is a pool for sharing Google One subscription."
+    },
+    {
+      "id": 12,
+      "poolType": "iCloud",
+      "createdBy": 1,
+      "createdAt": "2023-07-10T18:25:00Z",
+      "maxMembers": 12,
+      "currentMembers": 9,
+      "isPublic": false,
+      "isOpen": true,
+      "description": "This is a pool for sharing iCloud storage."
+    },
+    {
+      "id": 13,
+      "poolType": "Youtube",
+      "createdBy": 3,
+      "createdAt": "2023-07-15T09:50:00Z",
+      "maxMembers": 15,
+      "currentMembers": 10,
+      "isPublic": true,
+      "isOpen": true,
+      "description": "This is a pool for sharing Youtube Premium subscription."
+    },
+    {
+      "id": 14,
+      "poolType": "Google",
+      "createdBy": 2,
+      "createdAt": "2023-07-20T12:15:00Z",
+      "maxMembers": 6,
+      "currentMembers": 4,
+      "isPublic": false,
+      "isOpen": true,
+      "description": "This is a pool for sharing Google One subscription."
+    },
+    {
+      "id": 15,
+      "poolType": "iCloud",
+      "createdBy": 4,
+      "createdAt": "2023-07-25T11:30:00Z",
+      "maxMembers": 8,
+      "currentMembers": 6,
+      "isPublic": true,
+      "isOpen": false,
+      "description": "This is a pool for sharing iCloud storage."
+    }
+  ],
+  
+  "poolMemberShips" : [
+    {
+      "id": 1,
+      "poolId": 1,
+      "userId": 1,
+      "joinAt": "2023-04-06T09:00:00Z",
+      "role": "admin"
+    },
+    {
+      "id": 2,
+      "poolId": 1,
+      "userId": 2,
+      "joinAt": "2023-04-06T09:15:00Z",
+      "role": "member"
+    },
+    {
+      "id": 3,
+      "poolId": 1,
+      "userId": 3,
+      "joinAt": "2023-04-06T09:30:00Z",
+      "role": "member"
+    },
+    {
+      "id": 4,
+      "poolId": 2,
+      "userId": 2,
+      "joinAt": "2023-05-16T11:00:00Z",
+      "role": "admin"
+    },
+    {
+      "id": 5,
+      "poolId": 2,
+      "userId": 3,
+      "joinAt": "2023-05-16T11:15:00Z",
+      "role": "member"
+    },
+    {
+      "id": 6,
+      "poolId": 3,
+      "userId": 3,
+      "joinAt": "2023-06-02T12:30:00Z",
+      "role": "admin"
+    },
+    {
+      "id": 7,
+      "poolId": 3,
+      "userId": 1,
+      "joinAt": "2023-06-02T12:45:00Z",
+      "role": "member"
+    },
+    {
+      "id": 8,
+      "poolId": 4,
+      "userId": 2,
+      "joinAt": "2023-06-11T10:00:00Z",
+      "role": "admin"
+    },
+    {
+      "id": 9,
+      "poolId": 4,
+      "userId": 3,
+      "joinAt": "2023-06-11T10:20:00Z",
+      "role": "member"
+    },
+    {
+      "id": 10,
+      "poolId": 5,
+      "userId": 1,
+      "joinAt": "2023-06-13T09:00:00Z",
+      "role": "admin"
+    },
+    {
+      "id": 11,
+      "poolId": 5,
+      "userId": 3,
+      "joinAt": "2023-06-13T09:30:00Z",
+      "role": "member"
+    },
+    {
+      "id": 12,
+      "poolId": 6,
+      "userId": 2,
+      "joinAt": "2023-06-16T13:00:00Z",
+      "role": "admin"
+    },
+    {
+      "id": 13,
+      "poolId": 6,
+      "userId": 1,
+      "joinAt": "2023-06-16T13:15:00Z",
+      "role": "member"
+    },
+    {
+      "id": 14,
+      "poolId": 7,
+      "userId": 3,
+      "joinAt": "2023-06-19T09:00:00Z",
+      "role": "admin"
+    },
+    {
+      "id": 15,
+      "poolId": 7,
+      "userId": 2,
+      "joinAt": "2023-06-19T09:20:00Z",
+      "role": "member"
+    },
+    {
+      "id": 16,
+      "poolId": 8,
+      "userId": 1,
+      "joinAt": "2023-06-21T08:00:00Z",
+      "role": "admin"
+    },
+    {
+      "id": 17,
+      "poolId": 8,
+      "userId": 3,
+      "joinAt": "2023-06-21T08:20:00Z",
+      "role": "member"
+    },
+    {
+      "id": 18,
+      "poolId": 9,
+      "userId": 3,
+      "joinAt": "2023-06-26T11:00:00Z",
+      "role": "admin"
+    },
+    {
+      "id": 19,
+      "poolId": 9,
+      "userId": 1,
+      "joinAt": "2023-06-26T11:20:00Z",
+      "role": "member"
+    },
+    {
+      "id": 20,
+      "poolId": 10,
+      "userId": 1,
+      "joinAt": "2023-07-01T15:00:00Z",
+      "role": "admin"
+    },
+    {
+      "id": 21,
+      "poolId": 10,
+      "userId": 2,
+      "joinAt": "2023-07-01T15:20:00Z",
+      "role": "member"
+    },
+    {
+      "id": 22,
+      "poolId": 11,
+      "userId": 2,
+      "joinAt": "2023-07-06T13:00:00Z",
+      "role": "admin"
+    },
+    {
+      "id": 23,
+      "poolId": 11,
+      "userId": 3,
+      "joinAt": "2023-07-06T13:20:00Z",
+      "role": "member"
+    },
+    {
+      "id": 24,
+      "poolId": 12,
+      "userId": 1,
+      "joinAt": "2023-07-11T17:00:00Z",
+      "role": "admin"
+    },
+    {
+      "id": 25,
+      "poolId": 12,
+      "userId": 3,
+      "joinAt": "2023-07-11T17:20:00Z",
+      "role": "member"
+    },
+    {
+      "id": 26,
+      "poolId": 13,
+      "userId": 3,
+      "joinAt": "2023-07-16T09:00:00Z",
+      "role": "admin"
+    },
+    {
+      "id": 27,
+      "poolId": 13,
+      "userId": 1,
+      "joinAt": "2023-07-16T09:20:00Z",
+      "role": "member"
+    },
+    {
+      "id": 28,
+      "poolId": 14,
+      "userId": 3,
+      "joinAt": "2023-07-21T11:00:00Z",
+      "role": "admin"
+    },
+    {
+      "id": 29,
+      "poolId": 14,
+      "userId": 2,
+      "joinAt": "2023-07-21T11:20:00Z",
+      "role": "member"
+    },
+    {
+      "id": 30,
+      "poolId": 15,
+      "userId": 2,
+      "joinAt": "2023-07-26T10:00:00Z",
+      "role": "admin"
+    },
+    {
+      "id": 31,
+      "poolId": 15,
+      "userId": 1,
+      "joinAt": "2023-07-26T10:20:00Z",
+      "role": "member"
+    }
+  ]
+  
+  
+}

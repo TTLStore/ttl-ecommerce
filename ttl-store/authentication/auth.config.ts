@@ -8,9 +8,15 @@ import type { NextAuthOptions } from "next-auth"
 import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
 import { nextAuthDBConnect } from "@/db";
 import { getServerSession } from "next-auth";
+import Facebook from "next-auth/providers/facebook";
+import EmailProvider from "next-auth/providers/email";
+import clientPromise from "@/db/nextAuthConnect";
 
 const authConfig = {
-  adapter: MongoDBAdapter(nextAuthDBConnect),
+  session: {
+    maxAge: 60 * 60 * 24 // 24 hours
+  },
+  adapter: MongoDBAdapter(clientPromise),
   providers: [
     Google({
       clientId: process.env.AUTH_GOOGLE_ID as string,
@@ -27,6 +33,22 @@ const authConfig = {
         };
       }
     }),
+    Facebook({
+      clientId: process.env.AUTH_FACEBOOK_ID as string,
+      clientSecret: process.env.AUTH_FACEBOOK_SECRET as string,
+      // callback to add custom profile data
+      profile(profile) {
+        return {
+          id: profile.id, // sub is the unique identifier for the user
+          name: profile.name,
+          email: profile.email,
+          image: profile.picture,
+          createdAt: new Date(), 
+          updatedAt: new Date(),
+        };
+      }
+    }),
+    
   ],
   callbacks: {
     async session({ session, user } : any) {
