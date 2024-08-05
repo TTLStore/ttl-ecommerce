@@ -63,7 +63,8 @@ export function auth(
     | [GetServerSidePropsContext["req"], GetServerSidePropsContext["res"]]
     | [NextApiRequest, NextApiResponse]
     | []
-) {
+)
+{
   return getServerSession(...args, authConfig);
 }
 

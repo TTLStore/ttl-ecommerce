@@ -12,11 +12,15 @@ export type User = {
   userId: string;
 };
 
-export type PoolType = "Youtube" | "Google" | "Icloud";
+export enum Service {
+  youtube = "youtube",
+  google = "google",
+  icloud = "icloud",
+};
 
 export type Pool = {
   id: string;
-  poolType: PoolType;
+  poolType: Service;
   createdBy: string;
   createdAt: string;
   updatedAt: string;
@@ -24,8 +28,10 @@ export type Pool = {
   currentMembers: number;
 };
 
-export type PoolMemberRole = "Admin" | "Member";
-
+export enum PoolMemberRole {
+  Admin = "Admin",
+  Member = "Member",
+}
 export type PoolMemberShip = {
   id: string;
   poolId: string;
