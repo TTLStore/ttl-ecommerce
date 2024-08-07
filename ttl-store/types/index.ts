@@ -29,13 +29,13 @@ export type Pool = {
 };
 
 export enum PoolMemberRole {
-  Admin = "Admin",
-  Member = "Member",
+  Admin = "admin",
+  Member = "member",
 }
 export type PoolMemberShip = {
   id: string;
   poolId: string;
   userId: string;
-  joinAt: string;
+  joinedAt: string;
   role: PoolMemberRole;
 };
