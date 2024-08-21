@@ -48,6 +48,7 @@ function PoolForm() {
       alert('Error creating pool');
     } finally {
       setSubmitting(false);
+      
     }
   };
 

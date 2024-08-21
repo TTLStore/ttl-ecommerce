@@ -10,7 +10,6 @@ import { Session } from 'next-auth';
 import Link from 'next/link';
 function Header() {
   const { data: session } = useSession();
-  console.log(session);
   return (
     <header className="sticky top-0 py-4 rounded-b-md backdrop-blur-3xl border-b-[1px] border-slate-500 px-4 z-10">
       <div className="max-w-[1440px] mx-auto flex justify-between items-center">

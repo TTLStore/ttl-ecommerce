@@ -34,7 +34,8 @@ export async function POST(req: NextRequest) {
     await newPoolMemberShip.save();
     await newPool.save();
   } catch (error : any) {
-    return new Response('error', { status: 500 });
+    console.error(error);
+    return new Response(`error : ${error}`, { status: 500 });
   }
 
   return new Response('ok', { status: 201 });

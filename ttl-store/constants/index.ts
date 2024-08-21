@@ -30,3 +30,10 @@ export const MAX_POOL_MEMBERS = 5;
 
 export const FETCH_POOLS = `http://localhost:3001/pools/`
 export const FETCH_MEMBERSHIP = `http://localhost:3001/poolMemberShips/`
+
+export enum HTTP_STATUS {
+  OK = 200,
+  CREATED = 201,
+  UNAUTHORIZED = 401,
+  INTERNAL_SERVER_ERROR = 500,
+}

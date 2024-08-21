@@ -1,13 +1,10 @@
 'use client'
 
-import { FETCH_MEMBERSHIP } from '@/constants'
 import React, { useState, useEffect } from 'react'
 import type {  PoolMemberShip } from '@/types'
 import { formatMMDDYYYY } from '@/libs/date';
 import axios from 'axios';
 function MemberPool() {
-  // const activePools : PoolMemberShip[] = await fetch(`${FETCH_MEMBERSHIP}?userId=${1}`).then(res => res.json()).catch(err => console.log(err)) as PoolMemberShip[];
-  // console.log(activePools)
   const [activePools, setActivePools] = useState<PoolMemberShip[]>([]);
 
   useEffect(() => {
@@ -17,7 +14,7 @@ function MemberPool() {
     }
 
     getMemberPools();
-  })
+  },[])
 
   return (
     <div>
