@@ -62,7 +62,7 @@ const SearchBar = () => {
           placeholder="Search..." />
       </div>
       <p className="w-full text-center text-lg font-normal mt-8">
-        *We never use any email for sale, it's private
+        *We never use any email for sale, it&lsquo;s private
       </p>
     </div>
   )
@@ -74,7 +74,7 @@ const ServiceCards = () => {
       <div className="grid grid-cols-12 px-4 gap-x-20">
         {
           SERVICES_INFO.map((service, index) => (
-            <div className='col-span-4'>
+            <div key={index} className='col-span-4'>
               <ServiceCard
                 key={index}
                 cardBackgroundImage={service.cardBackgroundImage}
@@ -130,7 +130,7 @@ const SubScriptionSharing = () => {
             subscription.
           </p>
           <p>
-            Get started and share it to save money. We'll take care of the rest.
+            Get started and share it to save money. We&lsquo;ll take care of the rest.
           </p>
         </aside>
       </div>

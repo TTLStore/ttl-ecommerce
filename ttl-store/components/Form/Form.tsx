@@ -2,7 +2,7 @@
 import React, { KeyboardEvent, useState } from "react";
 import { Formik, Form, ErrorMessage, Field } from "formik";
 import { z } from "zod";
-import axios from "axios";
+
 import { withZodSchema } from 'formik-validator-zod';
 const FormSchema = z.object({
   username: z.string().min(3, {
