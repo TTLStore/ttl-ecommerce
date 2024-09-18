@@ -2,20 +2,49 @@
 @tailwind components;
 @tailwind utilities;
 
+
 body {
-  background-image: url('/images/background-1.png');
-  background-repeat: no-repeat;
-  background-size: cover;
+  font-family: 'Inter', sans-serif;
+  font-weight: 450;
+  font-size: 16px;
+  line-height: 24px; /* 1.5 times the font size */
+  letter-spacing: -0.02em; /* -2% letter spacing */
+  margin-bottom: 16px; /* Paragraph spacing */
+  text-decoration: none;
+  text-transform: none; /* No text transformation */
 }
 
-.text-default-color {
-  @apply text-white/90;
+@layer utilities {
+  .wrapper {
+    @apply max-w-7xl desktop:mx-auto p-5 mobile:px-10 tablet:px-0 w-full;
+  }
 }
 
-.bg-default-blur {
-  @apply bg-opacity-10 bg-gray-50;
+.h1-normal-big {
+  @apply font-normal text-4xl tracking-tight;
+  margin-bottom: none;
+  text-decoration: none;
 }
 
-.divide-default-color {
-  @apply divide-gray-50/20;
+.h1-medium-big {
+  @apply font-medium text-4xl tracking-tight;
+  margin-bottom: none;
+  text-decoration: none;
 }
+
+.h1-bold-big {
+  @apply font-bold text-4xl tracking-tight;
+  margin-bottom: none;
+  text-decoration: none;
+}
+
+.hero-dashboard {
+  position: relative;
+}
+
+.icon-hightlight {
+  position: absolute;
+  top: -30px;
+  left: -70px;
+}
+

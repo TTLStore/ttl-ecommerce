@@ -7,91 +7,52 @@ const config: Config = {
     "./hoc/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
+    screens: {
+      'mobile': { max: '639px' },
+      'tablet': { min: '640px', max: '1023px' },
+      'desktop': { min: '1024px' }
+    },
     extend: {
       colors: {
-        'text': {
-          50: '#0d0d0d',
-          100: '#1a1a1a',
-          200: '#333333',
-          300: '#4d4d4d',
-          400: '#666666',
-          500: '#808080',
-          600: '#999999',
-          700: '#b3b3b3',
-          800: '#cccccc',
-          900: '#e6e6e6',
-          950: '#f2f2f2',
+        primary: {
+          light: '#e7eaf6',
+          'light-hover': '#dbdff1',
+          'light-active': '#b5bde3',
+          DEFAULT: '#0f2ba4',
+          'normal-hover': '#0e2794',
+          'normal-active': '#0c2283',
+          dark: '#0b207b',
+          'dark-hover': '#091a62',
+          'dark-active': '#07134a',
+          darker: '#050f39',
         },
-        'background': {
-          50: '#0d0d0d',
-          100: '#1a1a1a',
-          200: '#333333',
-          300: '#4d4d4d',
-          400: '#666666',
-          500: '#808080',
-          600: '#999999',
-          700: '#b3b3b3',
-          800: '#cccccc',
-          900: '#e6e6e6',
-          950: '#f2f2f2',
-        },
-        'primary': {
-          50: '#00081a',
-          100: '#001133',
-          200: '#002266',
-          300: '#003399',
-          400: '#0044cc',
-          500: '#0055ff',
-          600: '#3377ff',
-          700: '#6699ff',
-          800: '#99bbff',
-          900: '#ccddff',
-          950: '#e5eeff',
-        },
-        'secondary': {
-          50: '#0d0d0d',
-          100: '#1a1a1a',
-          200: '#333333',
-          300: '#4d4d4d',
-          400: '#666666',
-          500: '#808080',
-          600: '#999999',
-          700: '#b3b3b3',
-          800: '#cccccc',
-          900: '#e6e6e6',
-          950: '#f2f2f2',
-        },
-        'accent': {
-          50: '#1a0900',
-          100: '#331200',
-          200: '#662400',
-          300: '#993600',
-          400: '#cc4700',
-          500: '#ff5900',
-          600: '#ff7a33',
-          700: '#ff9c66',
-          800: '#ffbd99',
-          900: '#ffdecc',
-          950: '#ffeee5',
+        neutral: {
+          black: {
+            light: '#e6e6e6', // Light
+            'light-hover': '#d9d9d9', // Light :hover
+            'light-active': '#b0b0b0', // Light :active
+            DEFAULT: '#000000', // Normal
+            'normal-hover': '#000000', // Normal :hover
+            'normal-active': '#000000', // Normal :active
+            dark: '#000000', // Dark
+            'dark-hover': '#000000', // Dark :hover
+            'dark-active': '#000000', // Dark :active
+            darker: '#000000', // Darker
+          },
+          white: {
+            light: '#ffffff', // Light
+            'light-hover': '#ffffff', // Light :hover
+            'light-active': '#ffffff', // Light :active
+            DEFAULT: '#ffffff', // Normal
+            'normal-hover': '#e6e6e6', // Normal :hover
+            'normal-active': '#cccccc', // Normal :active
+            dark: '#bfbfbf', // Dark
+            'dark-hover': '#999999', // Dark :hover
+            'dark-active': '#737373', // Dark :active
+            darker: '#595959', // Darker
+          },
         },
       },
-      fontSize: {
-        sm: '0.750rem',
-        base: '1rem',
-        xl: '1.333rem',
-        '2xl': '1.777rem',
-        '3xl': '2.369rem',
-        '4xl': '3.158rem',
-        '5xl': '4.210rem',
-      },
-      fontFamily: {
-        heading: 'Bitter',
-        body: 'Bitter',
-      },
-      fontWeight: {
-        normal: '400',
-        bold: '700',
-      }
     },
   },
   plugins: [],

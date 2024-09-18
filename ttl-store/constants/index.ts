@@ -1,3 +1,5 @@
+import { SERVICES_BG_IMAGES, SERVICES_LOGOS } from "@/assets";
+
 export const SERVICES = [
   "youtube",
   "google",
@@ -6,19 +8,22 @@ export const SERVICES = [
 
 export const SERVICES_INFO = [
   {
-    name: "youtube",
-    description: "YouTube is an American online video sharing and social media platform owned by Google.",
-    imageUrl: "/images/youtube.jpeg",
+    cardBackgroundImage: SERVICES_BG_IMAGES.youtube,
+    name: "youtube premium",
+    description: "Enjoy ad-free YouTube and YouTube Music, with offline access and background play.",
+    imageUrl: SERVICES_LOGOS.youtube,
   },
   {
-    name: "google",
-    description: "Google is an American multinational technology company that specializes in Internet-related services and products.",
-    imageUrl: "/images/google.jpg",
+    cardBackgroundImage: SERVICES_BG_IMAGES.google,
+    name: "google drive",
+    description: "Store any and all files. Access your files anytime, anywhere from desktop and mobile devices. Control how files are shared.",
+    imageUrl: SERVICES_LOGOS.google,
   },
   {
-    name: "icloud",
-    description: "iCloud is a cloud storage and cloud computing service from Apple Inc.",
-    imageUrl: "/images/icloud.png",
+    cardBackgroundImage: SERVICES_BG_IMAGES.icloud,
+    name: "Apple icloud service",
+    description: "Free Cloud Services Beyond Anything Offered to Date",
+    imageUrl: SERVICES_LOGOS.icloud,
   },
  
 ] as const;
