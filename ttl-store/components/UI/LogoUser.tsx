@@ -1,16 +1,14 @@
 import { UserSession } from "@/types";
-import { Session } from "next-auth";
 import Image from "next/image";
-import { signOut } from "next-auth/react";
 import PopOver from "./PopOver";
 
 export type LogoProps = {
-  session: Session & UserSession;
+  user : UserSession;
 };
 export default function Logo({
-  session
+  user
 }: LogoProps) {
-  const { name, image } = session;
+  const { name, image } = user;
   return (
     <PopOver>
       <div className="flex items-center gap-x-2 data-[focus]:bg-slate-800">

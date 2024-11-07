@@ -1,18 +1,15 @@
 import Google from "next-auth/providers/google";
-import type {
-  GetServerSidePropsContext,
-  NextApiRequest,
-  NextApiResponse,
-} from "next"
-import type { NextAuthOptions } from "next-auth"
-import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
-import { nextAuthDBConnect } from "@/db";
-import { getServerSession } from "next-auth";
-import Facebook from "next-auth/providers/facebook";
-import EmailProvider from "next-auth/providers/email";
+import { MongoDBAdapter } from "@auth/mongodb-adapter"
+import NextAuth from "next-auth";
 import clientPromise from "@/db/nextAuthConnect";
 
-const authConfig = {
+export const { auth, handlers, signIn, signOut } = NextAuth({
+  secret: process.env.AUTH_SECRET,
+  pages: {
+    signIn: '/auth/signin',
+    error: '/auth/error',
+    verifyRequest: '/auth/verify-request',
+  },
   session: {
     maxAge: 60 * 60 * 24 // 24 hours
   },
@@ -21,6 +18,7 @@ const authConfig = {
     Google({
       clientId: process.env.AUTH_GOOGLE_ID as string,
       clientSecret: process.env.AUTH_GOOGLE_SECRET as string,
+      allowDangerousEmailAccountLinking: true,
       // callback to add custom profile data
       profile(profile) {
         return {
@@ -32,40 +30,15 @@ const authConfig = {
           updatedAt: new Date(),
         };
       }
-    }),
-    Facebook({
-      clientId: process.env.AUTH_FACEBOOK_ID as string,
-      clientSecret: process.env.AUTH_FACEBOOK_SECRET as string,
-      // callback to add custom profile data
-      profile(profile) {
-        return {
-          id: profile.id, // sub is the unique identifier for the user
-          name: profile.name,
-          email: profile.email,
-          image: profile.picture,
-          createdAt: new Date(), 
-          updatedAt: new Date(),
-        };
-      }
-    }),
-    
+    })
   ],
   callbacks: {
     async session({ session, user } : any) {
+        console.log('session', session);
         session.user.userId = user.id;
       return Promise.resolve(session);
     },
+    
   }
-} satisfies NextAuthOptions;
+});
 
-export function auth(
-  ...args:
-    | [GetServerSidePropsContext["req"], GetServerSidePropsContext["res"]]
-    | [NextApiRequest, NextApiResponse]
-    | []
-)
-{
-  return getServerSession(...args, authConfig);
-}
-
-export default authConfig;
