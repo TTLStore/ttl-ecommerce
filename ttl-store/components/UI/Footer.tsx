@@ -28,7 +28,13 @@ function Footer() {
           <div>Hot topics</div>
         </div>
       </div>
-      <div className='bg-primary  w-full'>
+      {/* 
+        Quesiton: how to make the footer width 100% of the screen width?
+        Answer: Add a div with a background color of primary color and width of 100vw
+        Q: But its parent has a width of 1440px and margin of auto, how can I make it full width?
+
+      */}
+      <div className='bg-primary'>
         <div className="wrapper text-white flex justify-between">
           <p>&copy; Copyright 2024 ShareHub. All Right Reserved</p>
           <div className='flex uppercase gap-x-10'>

@@ -5,6 +5,7 @@ import ServiceCard from "./ServiceCard";
 import SideBar from "./SideBar";
 import PostCard from "./Card";
 import Footer from "./Footer";
+import SignOutButton from "./SignOutButton";
 export {
   Footer,
   PostCard,
@@ -12,5 +13,6 @@ export {
   Button,
   Header,
   LogoUser,
-  ServiceCard
+  ServiceCard,
+  SignOutButton,
 }

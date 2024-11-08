@@ -1,11 +1,11 @@
 import { checkIsAuthenticated } from "@/libs/auth/checkIsAuthenticated"
 import SignInPage from "./signin"
-function page() {
-  const isAuthenticated = checkIsAuthenticated();
-  if (!isAuthenticated) {
-    return (
-      <div>not authenticated</div>
-    )
+import { redirect } from "next/navigation";
+
+async function page() {
+  const isAuthenticated = await checkIsAuthenticated();
+  if (isAuthenticated) { // If user is authenticated, redirect to dashboard
+    redirect('/dashboard');
   }
 
   return (

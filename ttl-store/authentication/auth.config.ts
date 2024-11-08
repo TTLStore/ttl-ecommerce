@@ -1,7 +1,11 @@
 import Google from "next-auth/providers/google";
+import Nodemailer from "next-auth/providers/nodemailer";
 import { MongoDBAdapter } from "@auth/mongodb-adapter"
+
 import NextAuth from "next-auth";
 import clientPromise from "@/db/nextAuthConnect";
+import { clear } from "console";
+import clearStaleTokens from "@/libs/auth/clearStaleToken";
 
 export const { auth, handlers, signIn, signOut } = NextAuth({
   secret: process.env.AUTH_SECRET,
@@ -26,19 +30,31 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
           name: profile.name,
           email: profile.email,
           image: profile.picture,
-          createdAt: new Date(), 
+          createdAt: new Date(),
           updatedAt: new Date(),
         };
       }
-    })
+    }),
+    Nodemailer({
+      server: {
+        host: process.env.EMAIL_SERVER_HOST as string,
+        port: parseInt(process.env.EMAIL_SERVER_PORT as string, 10),
+        auth: {
+          user: process.env.EMAIL_SERVER_USER as string,
+          pass: process.env.EMAIL_SERVER_PASSWORD as string,
+        },
+      },
+      from: process.env.EMAIL_FROM as string,
+    }),
   ],
   callbacks: {
-    async session({ session, user } : any) {
-        console.log('session', session);
-        session.user.userId = user.id;
+    async session({ session, user }: any) {
+      console.log('session', session);
+      await clearStaleTokens(session.user.email!);
+      session.user.userId = user.id;
       return Promise.resolve(session);
     },
-    
+
   }
 });
 

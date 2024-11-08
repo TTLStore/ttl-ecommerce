@@ -20,12 +20,12 @@ export default async function RootLayout({
   const session = await auth();
   return (
     <html lang="en">
-      <body className={`${inter.className} 2xl:max-w-[1440px] m-auto`}>
+      <body className={`${inter.className} max-w-[1440px] m-auto`}>
         <SessionProvider session={session}>
-          <Header />
+          
           {children}
         </SessionProvider>
-        <Footer />
+    
       </body>
     </html>
   );
