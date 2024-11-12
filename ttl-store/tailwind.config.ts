@@ -14,6 +14,7 @@ const config: Config = {
     },
     extend: {
       colors: {
+        "neutral-8" : "#262626",
         primary: {
           light: '#e7eaf6',
           'light-hover': '#dbdff1',
