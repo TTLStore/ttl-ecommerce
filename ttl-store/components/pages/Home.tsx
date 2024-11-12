@@ -8,7 +8,8 @@ import { howitwork_bg_img, youtube_logo } from '@/assets';
 import clsx from 'clsx';
 import { FaPlus } from "react-icons/fa6";
 import { FaMinus } from 'react-icons/fa';
-
+import { cn } from '@/utils';
+import { GoArrowRight } from "react-icons/go";
 const services = {
   "service": "500 Services",
   "description": "for cor-subscription"
@@ -22,6 +23,7 @@ function Home() {
       <SubScriptionSharing />
       <HowItWorks />
       <ExclusiveAdvantages />
+      <LetShareNow />
       <FrequentlyAskedQuestions />
     </main>
   )
@@ -52,7 +54,7 @@ const HeroHomePage = () => {
 
 const SectionHeader = ({ className, children }: { className: string, children: React.ReactNode }) => {
   return (
-    <h2 className={clsx("text-[3.5rem] leading-[4rem] font-bold text-center", className)}>{children}</h2>
+    <h2 className={cn("text-[3.5rem] leading-[4rem] font-bold text-center", className)}>{children}</h2>
   )
 }
 
@@ -192,17 +194,15 @@ type DetailedStepCardProps = {
 }
 const DetailedStepCard = ({ iconUrl, iconAlt, title, description }: DetailedStepCardProps) => {
   return (
-    <li className="flex cursor-pointer group">
-      <details className="rounded-2xl open:shadow-xl desktop:px-12 px-4 py-8 duration-500
-     [&_p]:open:subpixel-antialiased [&_p]:open:duration-500 desktop:-translate-x-12
+    <details className="rounded-2xl open:shadow-xl desktop:px-12 px-4 py-8 duration-500
+     [&_p]:open:subpixel-antialiased [&_p]:open:duration-500 desktop:-translate-x-12 max-w-[35rem]
       ">
-        <summary className="list-none flex justify-start group-hover:underline duration-300">
-          <Image src={iconUrl} alt={iconAlt} width={24} height={24} />
-          <p className="ms-4 text-2xl font-bold">{title}</p>
-        </summary>
-        <p className="text-neutral-800 mt-4 text-balance">{description}</p>
-      </details>
-    </li>
+      <summary className="list-none flex justify-start group-hover:underline duration-300">
+        <Image src={iconUrl} alt={iconAlt} width={24} height={24} />
+        <p className="ms-4 text-2xl font-bold">{title}</p>
+      </summary>
+      <p className="text-neutral-800 mt-4 text-balance ">{description}</p>
+    </details>
   )
 }
 
@@ -213,7 +213,7 @@ const ExampleCard = () => {
       backgroundSize: 'cover',
       backgroundPosition: 'center',
       backgroundRepeat: 'no-repeat'
-    }} className="relative flex items-center justify-center  shadow-md rounded-2xl desktop:min-w-[613px] tablet:min-w-[313px] mobile:min-w-[113px] p-6  transition-transform">
+    }} className="relative flex items-center justify-center  shadow-md rounded-2xl desktop:min-w-[500px] tablet:min-w-[313px] mobile:min-w-[113px] p-6  transition-transform">
       <Image src={howItWorksIcons.make_money_icon} alt="make_money_icon" width={256} height={256} className='absolute left-0 top-0' />
       <Image src={howItWorksIcons.isolation_mode} alt="isolation_mode" width={256} height={256} className='absolute right-0 bottom-0' />
       <div className=" bg-white rounded-2xl shadow-md p-6 z-20">
@@ -269,10 +269,12 @@ const HowItWorks = () => {
       <div className="flex flex-row  justify-between mobile:flex-col mt-20">
         <div className="flex flex-col text-left text-primary mobile:w-full">
           <h3 className="text-4xl font-[650]">Offer a subscription:</h3>
-          <ul className="py-8 *:w-[90%] mobile:w-full mobile:*:w-full">
+          <ul className="py-8 mobile:w-full mobile:*:w-full">
             {
               HowItWorkSteps.map((step, index) => (
-                <DetailedStepCard key={index} {...step} />
+                <li key={index} className="flex cursor-pointer group">
+                  <DetailedStepCard {...step} />
+                </li>
               ))
             }
           </ul>
@@ -344,6 +346,49 @@ const ExclusiveAdvantages = () => {
     </section>
   )
 }
+
+// ----------------- Let's Share Now ----------------- //
+
+const GradientCirlce = ({ className }: { className?: string }) => {
+  return (
+    <div className={cn("flex items-center justify-center w-[26rem] aspect-square rounded-full bg-gradient-to-br from-[#0f2ba4] to-[#1488cc]", className)} />
+  )
+}
+
+const LetShareNow = () => {
+  return (
+    <section >
+      {/* Three circles with gradient background from #0f2ba4 to #1488cc */}
+      <div className="bg-primary overflow-hidden h-[22rem] relative">
+        <div className="relative -translate-y-[2rem]">
+          <GradientCirlce className="absolute -left-[13rem] z-30 rotate-[130deg]" />
+          <GradientCirlce className="absolute -left-12 z-20 rotate-[130deg]" />
+          <GradientCirlce className="absolute left-[13rem] z-10 rotate-[90deg]" />
+        </div>
+        <div className="absolute z-100 w-full h-full grid grid-cols-12 grid-rows-12  gap-y-20 px-20">
+          <p className="text-white text-3xl font-light mt-12 col-span-6 row-span-3">
+            Together, let's make culture accessible to all.
+          </p>
+          <SectionHeader className="text-white text-left col-span-7 row-start-4">
+            Let's Share Now!
+          </SectionHeader>
+        <p className="col-start-9 col-span-5 row-start-1 mt-12 text-white text-base font-light">
+        Sharing your free slots also means making leisure activities, culture and press accessible to those who can't afford it.
+        If you still have questions, please contact us!
+        </p>
+          <Button className="col-start-9 row-start-4 row-span-2 my-4 mx-2 col-span-3 bg-white text-black flex items-center">
+            <GoArrowRight className="text-3xl me-2" />
+            I'm going for it
+            </Button>
+        </div>
+      </div>
+
+    </section>
+  )
+}
+
+
+// ----------------- FAQ ----------------- //
 
 type AccordianProps = {
   title: string,
