@@ -9,14 +9,13 @@ body {
   font-size: 16px;
   line-height: 24px; /* 1.5 times the font size */
   letter-spacing: -0.02em; /* -2% letter spacing */
-  margin-bottom: 16px; /* Paragraph spacing */
   text-decoration: none;
   text-transform: none; /* No text transformation */
 }
 
 @layer utilities {
   .wrapper {
-    @apply max-w-7xl desktop:mx-auto p-5 mobile:px-10 tablet:px-0 w-full;
+    @apply max-w-[1440px] mx-auto p-5 mobile:px-10 tablet:px-0 w-full;
   }
 }
 
