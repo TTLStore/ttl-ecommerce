@@ -4,7 +4,7 @@ import { SERVICES_INFO } from '@/constants';
 import { exclusiveAdvantagesIcons, howItWorksIcons, icons, subscriptionIcons } from '@/assets/icons';
 import Image from 'next/image';
 import { Button } from '@/components/UI';
-import { howitwork_bg_img, youtube_logo } from '@/assets';
+import { howitwork_bg_img, READ_ABOUT_US, youtube_logo } from '@/assets';
 import clsx from 'clsx';
 import { FaPlus } from "react-icons/fa6";
 import { FaMinus } from 'react-icons/fa';
@@ -17,13 +17,14 @@ const services = {
 
 function Home() {
   return (
-    <main id="main" className="w-full px-8 mx-auto flex flex-col *:min-h-[70vh]  *:my-20" >
+    <main id="main" className="w-full px-8 mx-auto flex flex-col *:min-h-[70vh *:my-14" >
       <HeroHomePage />
 
       <SubScriptionSharing />
       <HowItWorks />
       <ExclusiveAdvantages />
       <LetShareNow />
+      <ReadAboutUs/>
       <FrequentlyAskedQuestions />
     </main>
   )
@@ -31,20 +32,22 @@ function Home() {
 
 const HeroHomePage = () => {
   return (
-    <section className="w-full text-center flex-1 flex flex-col gap-y-8">
+    <section className="w-full text-center flex-1 flex flex-col gap-y-8 py-8">
       {/* --- Title --- */}
-      <h1 className="mb-2 text-[4.5rem] font-bold">
-        <span className="text-primary relative">
+      <SectionHeader className="mb-2 ~text-[3.5rem]/[4.5rem] font-bold">
+        <span className="text-primary relative leading-10">
           <Image src={icons.ilus01} alt="ilus01" className="icon-hightlight" />
           {services.service}
         </span> available
-
-      </h1>
-      <span className="h1-normal-big">
+      </SectionHeader>
+      <span className="~text-2xl/4xl">
         {services.description}
       </span>
       {/* --- Search Bar --- */}
       <SearchBar />
+      <p className="w-full text-center font-light">
+        *We never use any email for sale, it&lsquo;s private
+      </p>
       {/* --- Services --- */}
 
       <ServiceCards />
@@ -54,14 +57,14 @@ const HeroHomePage = () => {
 
 const SectionHeader = ({ className, children }: { className: string, children: React.ReactNode }) => {
   return (
-    <h2 className={cn("text-[3.5rem] leading-[4rem] font-bold text-center", className)}>{children}</h2>
+    <h2 className={cn("~text-[2.5rem]/[3.5rem] leading-[4rem] font-bold text-center", className)}>{children}</h2>
   )
 }
 
 const SearchBar = () => {
   return (
-    <div className='w-full my-8'>
-      <div className="relative flex items-center w-2/4 mx-auto h-16 rounded-full outline outline-gray-200 overflow-hidden bg-slate-100">
+    <div className='w-full'>
+      <div className="relative flex items-center w-3/4 mx-auto h-16 rounded-full outline outline-gray-200 overflow-hidden bg-slate-100">
         <div className="grid place-items-center h-full w-12 text-gray-300">
           <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -69,14 +72,12 @@ const SearchBar = () => {
         </div>
 
         <input
-          className="peer h-full w-full outline-none text-sm  bg-slate-100 text-gray-300 pr-2"
+          className="peer h-full w-full outline-none text-base bg-slate-100 text-gray-300 pr-2"
           type="text"
           id="search"
           placeholder="Search..." />
       </div>
-      <p className="w-full text-center text-lg font-normal mt-8">
-        *We never use any email for sale, it&lsquo;s private
-      </p>
+
     </div>
   )
 }
@@ -143,9 +144,9 @@ const SubScriptionSharing = () => {
       <SectionHeader className="relative">Subscription Sharing
         <Image src={subscriptionIcons.dec} className="absolute -right-12 -top-5" alt="dec" />
       </SectionHeader>
-      <div className='grid grid-cols-12 mt-20'>
+      <div className='desktop:grid grid-cols-12 mt-20 flex flex-col'>
 
-        <div className="col-start-1 col-span-8 flex space-x-4 ">
+        <div className="col-start-1 col-span-8 flex mobile:flex-col mobile:justify-around items-center gap-y-4 gap-x-4">
           <SubScriptionCard
             imageUrl={subscriptionIcons.share}
             serviceName="Share"
@@ -167,7 +168,7 @@ const SubScriptionSharing = () => {
             }}
           />
         </div>
-        <aside className="col-start-9 col-span-4 text-gray-700 max-w-lg [&>:not(:first-child)]:mt-8">
+        <aside className="col-start-9 col-span-4 text-gray-700 desktop:max-w-lg [&>:not(:first-child)]:mt-8 mt-4">
           <p >
             <b>ShareHub</b> is the best solution to <b> share the cost of your subscriptions</b> and
             monthly expenses.
@@ -334,10 +335,10 @@ const ExclusiveAdvantages = () => {
   return (
     <section>
       <SectionHeader className="mb-40">Enjoy Exclusive Advantages</SectionHeader>
-      <div className="desktop:grid desktop:grid-cols-12 gap-y-20 flex flex-col gap-">
+      <div className="grid grid-cols-12 gap-y-20 mobile:flex flex-col">
         {
           ExclusiveAdvantages.map((advantage, index) => (
-            <div key={index} className="col-span-3">
+            <div key={index} className="desktop:col-span-3 tablet:col-span-6">
               <ExclusiveCard  {...advantage} />
             </div>
           ))
@@ -355,31 +356,49 @@ const GradientCirlce = ({ className }: { className?: string }) => {
   )
 }
 
+const ReadAboutUs = () => {
+  return (
+    <section className="flex mobile:flex-col justify-between mobile:items-center items-start">
+      <SectionHeader className="text-left ms-20 mobile:ms-0">Read <br className="mobile:hidden"/>about us</SectionHeader>
+      <div className="w-2/4 grid grid-cols-12 items-center gap-2 mobile:mx-auto">
+          {
+            READ_ABOUT_US.map((image, index) => (
+              <Image key={index} src={image} alt="brand_vn" width={200} height={200} className="cursor-pointer hover:scale-105 col-span-4 mobile:col-span-6 " />
+            ))
+          }
+      </div>
+    </section>
+  )
+}
 const LetShareNow = () => {
   return (
-    <section >
+    <section>
       {/* Three circles with gradient background from #0f2ba4 to #1488cc */}
-      <div className="bg-primary overflow-hidden h-[22rem] relative">
-        <div className="relative -translate-y-[2rem]">
+      <div className="bg-primary overflow-hidden h-[22rem] mobile:h-auto relative">
+        <div className="relative -translate-y-[2rem] mobile:rotate-90 mobile:translate-y-[15rem] mobile:translate-x-[13rem] ">
           <GradientCirlce className="absolute -left-[13rem] z-30 rotate-[130deg]" />
           <GradientCirlce className="absolute -left-12 z-20 rotate-[130deg]" />
           <GradientCirlce className="absolute left-[13rem] z-10 rotate-[90deg]" />
         </div>
-        <div className="absolute z-100 w-full h-full grid grid-cols-12 grid-rows-12  gap-y-20 px-20">
-          <p className="text-white text-3xl font-light mt-12 col-span-6 row-span-3">
-            Together, let's make culture accessible to all.
-          </p>
-          <SectionHeader className="text-white text-left col-span-7 row-start-4">
+        <div className="absolute z-100 mobile:relative mobile:flex flex-col mobile:items-center mobile:text-center w-full h-full grid grid-cols-12 grid-rows-12 gap-y-20 px-20 py-4 ">
+          <SectionHeader className="text-white text-left mobile:text-center col-span-7 row-start-4">
             Let's Share Now!
           </SectionHeader>
-        <p className="col-start-9 col-span-5 row-start-1 mt-12 text-white text-base font-light">
-        Sharing your free slots also means making leisure activities, culture and press accessible to those who can't afford it.
-        If you still have questions, please contact us!
-        </p>
-          <Button className="col-start-9 row-start-4 row-span-2 my-4 mx-2 col-span-3 bg-white text-black flex items-center">
-            <GoArrowRight className="text-3xl me-2" />
-            I'm going for it
+          <p className="text-white text-3xl font-light mt-12 col-span-5 row-start-1 row-span-3">
+            Together, let's make culture accessible to all.
+          </p>
+
+          <p className="col-start-9 col-span-5 row-start-1 mt-12 text-white text-base font-light">
+            Sharing your free slots also means making leisure activities, culture and press accessible to those who can't afford it.
+            If you still have questions, please contact us!
+          </p>
+          <div className="col-start-9 row-start-4 row-span-2 col-span-4">
+            <Button className="flex items-center">
+              <GoArrowRight className="text-3xl me-2" />
+              I'm going for it
             </Button>
+          </div>
+
         </div>
       </div>
 

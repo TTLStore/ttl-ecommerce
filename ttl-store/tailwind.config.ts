@@ -1,20 +1,27 @@
 import type { Config } from "tailwindcss";
+import fluid, { extract, screens } from "fluid-tailwind";
 const config: Config = {
-  content: [
-    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./app/**/*.{js,ts,jsx,tsx,mdx}",
-    "./hoc/**/*.{js,ts,jsx,tsx,mdx}",
-  ],
+  content: {
+    files: [
+      "./pages/**/*.{js,ts,jsx,tsx,mdx}",
+      "./components/**/*.{js,ts,jsx,tsx,mdx}",
+      "./app/**/*.{js,ts,jsx,tsx,mdx}",
+      "./hoc/**/*.{js,ts,jsx,tsx,mdx}",
+    ],
+    extract
+  },
   theme: {
+    fluid: ({theme} : { theme : CallableFunction}) => ({
+      defaultScreens: ["40rem", "64rem"],
+    }),
     screens: {
-      'mobile': { max: '639px' },
-      'tablet': { min: '640px', max: '1023px' },
-      'desktop': { min: '1024px' }
+      'mobile': { max: '40rem' },
+      'tablet': { min: '56rem', max: '64rem' },
+      'desktop': { min: '65rem' }
     },
     extend: {
       colors: {
-        "neutral-8" : "#262626",
+        "neutral-8": "#262626",
         primary: {
           light: '#e7eaf6',
           'light-hover': '#dbdff1',
@@ -56,6 +63,6 @@ const config: Config = {
       },
     },
   },
-  plugins: [],
+  plugins: [fluid],
 };
 export default config;
