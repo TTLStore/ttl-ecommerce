@@ -10,6 +10,7 @@ import { FaPlus } from "react-icons/fa6";
 import { FaMinus } from 'react-icons/fa';
 import { cn } from '@/utils';
 import { GoArrowRight } from "react-icons/go";
+import Carousel from './Carousel';
 const services = {
   "service": "500 Services",
   "description": "for cor-subscription"
@@ -17,14 +18,14 @@ const services = {
 
 function Home() {
   return (
-    <main id="main" className="w-full px-8 mx-auto flex flex-col *:min-h-[70vh *:my-14" >
+    <main id="main" className="w-full mx-auto *:px-8 flex flex-col *:my-48" >
       <HeroHomePage />
 
       <SubScriptionSharing />
       <HowItWorks />
       <ExclusiveAdvantages />
       <LetShareNow />
-      <ReadAboutUs/>
+     
       <FrequentlyAskedQuestions />
     </main>
   )
@@ -50,7 +51,8 @@ const HeroHomePage = () => {
       </p>
       {/* --- Services --- */}
 
-      <ServiceCards />
+      {/* <ServiceCards /> */}
+      <Carousel/>
     </section>
   )
 }
@@ -84,7 +86,7 @@ const SearchBar = () => {
 
 const ServiceCards = () => {
   return (
-    <div>
+    <div className="overflow-hidden">
       <div className="grid grid-cols-12 px-4 gap-x-20">
         {
           SERVICES_INFO.map((service, index) => (
@@ -195,8 +197,8 @@ type DetailedStepCardProps = {
 }
 const DetailedStepCard = ({ iconUrl, iconAlt, title, description }: DetailedStepCardProps) => {
   return (
-    <details className="rounded-2xl open:shadow-xl desktop:px-12 px-4 py-8 duration-500
-     [&_p]:open:subpixel-antialiased [&_p]:open:duration-500 desktop:-translate-x-12 max-w-[35rem]
+    <details className="rounded-2xl open:shadow-xl desktop:px-8 px-4 py-8 duration-500
+     [&_p]:open:subpixel-antialiased [&_p]:open:duration-500 desktop:-translate-x-8 max-w-[35rem]
       ">
       <summary className="list-none flex justify-start group-hover:underline duration-300">
         <Image src={iconUrl} alt={iconAlt} width={24} height={24} />
@@ -401,7 +403,7 @@ const LetShareNow = () => {
 
         </div>
       </div>
-
+      <ReadAboutUs/>
     </section>
   )
 }

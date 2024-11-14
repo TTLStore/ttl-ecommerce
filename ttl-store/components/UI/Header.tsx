@@ -9,13 +9,13 @@ import { getUser } from '@/libs/auth/getUserName';
 async function Header() {
 
   return (
-    <header className="w-full">
+    <header className="">
       <div className="wrapper flex items-center">
         <Link href="/" className='w-1/2'>
-          <Image width={128} height={128} src="/images/sharehub-logo.svg" alt="logo" />
+          <Image width={150} height={150} src="/images/sharehub-logo.svg" alt="logo" />
         </Link>
 
-        <nav className="w-1/2 flex justify-between items-center space-x-4 text-primary">
+        <nav className="desktop:w-1/2 tablet:w-2/3 mobile:hidden flex justify-between items-center space-x-4 text-primary">
           <Link href="/services" className=" rounded-3xl bg-primary text-white px-4 py-2">Subscription</Link>
           <Link href="/about">
             <Button
@@ -60,11 +60,7 @@ async function UserLogin() {
         size="small"
       />
     </Link>
-
   )
-
-
-
 }
 
 export default Header
