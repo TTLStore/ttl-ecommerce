@@ -33,7 +33,7 @@ function Footer() {
         Q: But its parent has a width of 1440px and margin of auto, how can I make it full width?
 
       */}
-      <div className='bg-primary py-12 rounded-b-xl'>
+      <div className='bg-primary py-12'>
         <div className="wrapper text-white flex justify-between">
           <p>&copy; Copyright 2024 ShareHub. All Right Reserved</p>
           <div className='flex uppercase gap-x-10'>
