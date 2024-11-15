@@ -1,6 +1,3 @@
-
-import { ServiceCard } from '@/components/UI';
-import { SERVICES_INFO } from '@/constants';
 import { exclusiveAdvantagesIcons, howItWorksIcons, icons, subscriptionIcons } from '@/assets/icons';
 import Image from 'next/image';
 import { Button } from '@/components/UI';
@@ -18,7 +15,7 @@ const services = {
 
 function Home() {
   return (
-    <main id="main" className="w-full mx-auto *:px-8 flex flex-col *:my-48" >
+    <main id="main" className="w-full max-w-[1440px] mx-auto *:px-8 flex flex-col *:~my-28/48" >
       <HeroHomePage />
 
       <SubScriptionSharing />
@@ -33,9 +30,9 @@ function Home() {
 
 const HeroHomePage = () => {
   return (
-    <section className="w-full text-center flex-1 flex flex-col gap-y-8 py-8">
+    <section className="text-center flex-1 flex flex-col gap-y-8 py-8">
       {/* --- Title --- */}
-      <SectionHeader className="mb-2 ~text-[3.5rem]/[4.5rem] font-bold">
+      <SectionHeader className="mb-2 ~text-[3rem]/[4.5rem] ~leading-[3.5rem]/[4.7rem] font-bold">
         <span className="text-primary relative leading-10">
           <Image src={icons.ilus01} alt="ilus01" className="icon-hightlight" />
           {services.service}
@@ -51,15 +48,14 @@ const HeroHomePage = () => {
       </p>
       {/* --- Services --- */}
 
-      {/* <ServiceCards /> */}
-      <Carousel/>
+      <ServiceCards />
     </section>
   )
 }
 
 const SectionHeader = ({ className, children }: { className: string, children: React.ReactNode }) => {
   return (
-    <h2 className={cn("~text-[2.5rem]/[3.5rem] leading-[4rem] font-bold text-center", className)}>{children}</h2>
+    <h2 className={cn("~text-[2.5rem]/[3.5rem] ~leading-[3rem]/[3.8rem] font-bold text-center", className)}>{children}</h2>
   )
 }
 
@@ -86,23 +82,9 @@ const SearchBar = () => {
 
 const ServiceCards = () => {
   return (
-    <div className="overflow-hidden">
-      <div className="grid grid-cols-12 px-4 gap-x-20">
-        {
-          SERVICES_INFO.map((service, index) => (
-            <div key={index} className='col-span-4'>
-              <ServiceCard
-                key={index}
-                cardBackgroundImage={service.cardBackgroundImage}
-                serviceName={service.name}
-                serviceDescription={service.description}
-                imageUrl={service.imageUrl}
-              />
-            </div>
-          ))
-        }
-      </div>
-      <div className="w-full text-center my-8">
+    <div className="flex flex-col">
+      <Carousel/>
+      <div className="w-full text-center mt-20">
         <Button className="bg-black text-white">See all subscriptions</Button>
       </div>
     </div>
@@ -144,7 +126,7 @@ const SubScriptionSharing = () => {
     <section className="flex flex-col items-center">
       <p className="font-light mb-2">A solution at the service of users</p>
       <SectionHeader className="relative">Subscription Sharing
-        <Image src={subscriptionIcons.dec} className="absolute -right-12 -top-5" alt="dec" />
+        <Image src={subscriptionIcons.dec} className="absolute -right-8 mobile:~-right-2/8 -top-2" alt="dec" />
       </SectionHeader>
       <div className='desktop:grid grid-cols-12 mt-20 flex flex-col'>
 
@@ -200,7 +182,7 @@ const DetailedStepCard = ({ iconUrl, iconAlt, title, description }: DetailedStep
     <details className="rounded-2xl open:shadow-xl desktop:px-8 px-4 py-8 duration-500
      [&_p]:open:subpixel-antialiased [&_p]:open:duration-500 desktop:-translate-x-8 max-w-[35rem]
       ">
-      <summary className="list-none flex justify-start group-hover:underline duration-300">
+      <summary className="list-none  flex justify-start group-hover:underline duration-300">
         <Image src={iconUrl} alt={iconAlt} width={24} height={24} />
         <p className="ms-4 text-2xl font-bold">{title}</p>
       </summary>
@@ -340,7 +322,7 @@ const ExclusiveAdvantages = () => {
       <div className="grid grid-cols-12 gap-y-20 mobile:flex flex-col">
         {
           ExclusiveAdvantages.map((advantage, index) => (
-            <div key={index} className="desktop:col-span-3 tablet:col-span-6">
+            <div key={index} className="desktop:col-span-3 col-span-6 ">
               <ExclusiveCard  {...advantage} />
             </div>
           ))
@@ -382,7 +364,7 @@ const LetShareNow = () => {
           <GradientCirlce className="absolute -left-12 z-20 rotate-[130deg]" />
           <GradientCirlce className="absolute left-[13rem] z-10 rotate-[90deg]" />
         </div>
-        <div className="absolute z-100 mobile:relative mobile:flex flex-col mobile:items-center mobile:text-center w-full h-full grid grid-cols-12 grid-rows-12 gap-y-20 px-20 py-4 ">
+        <div className="absolute z-100 mobile:relative mobile:flex flex-col mobile:items-center mobile:text-center w-full h-full grid grid-cols-12 grid-rows-12 gap-y-20 desktop:px-20 px-2 py-4 ">
           <SectionHeader className="text-white text-left mobile:text-center col-span-7 row-start-4">
             Let's Share Now!
           </SectionHeader>

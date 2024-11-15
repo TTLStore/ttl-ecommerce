@@ -11,7 +11,7 @@ function Footer() {
           <Image width={256} height={256} src="/images/sharehub-logo.svg" alt="logo" />
         </Link>
 
-        <div className='flex justify-between mt-10 mb-28'>
+        <div className='flex mobile:flex-col gap-y-4 justify-between mt-10 mb-28'>
           <div className='min-w-[200px] flex flex-col gap-y-2'>
             <p>Make with love &hearts;</p>
             <div className='flex justify-start gap-x-2'>
@@ -33,7 +33,7 @@ function Footer() {
         Q: But its parent has a width of 1440px and margin of auto, how can I make it full width?
 
       */}
-      <div className='bg-primary py-12'>
+      <div className='bg-primary ~py-8/12 ~text-sm/base'>
         <div className="wrapper text-white flex justify-between">
           <p>&copy; Copyright 2024 ShareHub. All Right Reserved</p>
           <div className='flex uppercase gap-x-10'>

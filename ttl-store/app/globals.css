@@ -47,3 +47,10 @@ body {
   left: -70px;
 }
 
+summary::-webkit-details-marker {
+  display: none;
+}
+
+summary::-moz-list-bullet {
+  display: none;
+}

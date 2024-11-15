@@ -12,7 +12,7 @@ const config: Config = {
   },
   theme: {
     fluid: ({theme} : { theme : CallableFunction}) => ({
-      defaultScreens: ["40rem", "64rem"],
+      defaultScreens: ["20rem", "64rem"],
     }),
     screens: {
       'mobile': { max: '40rem' },
