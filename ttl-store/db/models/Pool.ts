@@ -8,8 +8,6 @@ const poolSchema = new mongoose.Schema({
     required: true,
   },
   createdBy: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
-  createdAt: { type: Date, default: Date.now },
-  updatedAt: { type: Date, default: Date.now },
   maxMembers: {
     type: Number,
     default: MAX_POOL_MEMBERS,
@@ -34,7 +32,7 @@ const poolSchema = new mongoose.Schema({
     type: String,
     required: true,
   }
-});
+}, { timestamps: true });
 
 const Pools = mongoose.models.Pool || mongoose.model("Pool", poolSchema);
 

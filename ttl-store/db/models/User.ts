@@ -4,11 +4,10 @@ const userSchema = new mongoose.Schema({
   name: { type: String, required: true },
   email: { type: String, required: true },
   image: { type: String },
-  emailVerified: { type: Date},
+  phone: { type: String },
+  emailVerified: { type: Date, default: null },
   password: { type: String },
-  createdAt: { type: Date, default: Date.now },
-  updatedAt: { type: Date, default: Date.now },
-});
+}, { timestamps: true });
 
 const Users = mongoose.models.User || mongoose.model("User", userSchema);
 

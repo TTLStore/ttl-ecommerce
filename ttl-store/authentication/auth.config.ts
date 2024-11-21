@@ -4,7 +4,6 @@ import { MongoDBAdapter } from "@auth/mongodb-adapter"
 
 import NextAuth from "next-auth";
 import clientPromise from "@/db/nextAuthConnect";
-import { clear } from "console";
 import clearStaleTokens from "@/libs/auth/clearStaleToken";
 
 export const { auth, handlers, signIn, signOut } = NextAuth({
@@ -31,7 +30,6 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
           email: profile.email,
           image: profile.picture,
           createdAt: new Date(),
-          updatedAt: new Date(),
         };
       }
     }),
@@ -49,8 +47,8 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
   ],
   callbacks: {
     async session({ session, user }: any) {
-      console.log('session', session);
-      await clearStaleTokens(session.user.email!);
+      // console.log('session', session);
+      // await clearStaleTokens(session.user.email!);
       session.user.userId = user.id;
       return Promise.resolve(session);
     },

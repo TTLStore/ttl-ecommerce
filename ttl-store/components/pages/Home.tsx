@@ -8,6 +8,7 @@ import { FaMinus } from 'react-icons/fa';
 import { cn } from '@/utils';
 import { GoArrowRight } from "react-icons/go";
 import Carousel from './Carousel';
+import { a } from 'motion/react-client';
 const services = {
   "service": "500 Services",
   "description": "for cor-subscription"
@@ -99,12 +100,13 @@ type SubScriptionCardProps = {
     cardClassName: string | ""
     btnClassName: string | ""
     bodyClassName: string | ""
-  }
+  },
+  actionButton: string
 }
 
-const SubScriptionCard = ({ imageUrl, serviceName, serviceDescription, customStyle }: SubScriptionCardProps) => {
+const SubScriptionCard = ({ imageUrl, serviceName, serviceDescription, customStyle, actionButton }: SubScriptionCardProps) => {
   return (
-    <div className={clsx("flex flex-col p-12 rounded-2xl shadow-md w-[max(20rem,40%)] group hover:scale-[1.05] hover:-translate-y-[5%] duration-300", customStyle.cardClassName)}>
+    <div className={cn("flex flex-col p-12 rounded-2xl shadow-md w-[max(20rem,40%)] group hover:scale-[1.05] hover:-translate-y-[5%] duration-300 min-h-[35rem]", customStyle.cardClassName)}>
       <Image src={imageUrl}
         className="mb-4 group-hover:scale-110 duration-300"
         alt="share"
@@ -116,7 +118,9 @@ const SubScriptionCard = ({ imageUrl, serviceName, serviceDescription, customSty
         {serviceDescription}
       </p>
 
-      <Button className={clsx("bg-black text-white w-full", customStyle.btnClassName)}>Share</Button>
+      <Button className={clsx("bg-black text-white w-full", customStyle.btnClassName)}>
+        {actionButton}
+      </Button>
     </div>
   )
 }
@@ -140,6 +144,7 @@ const SubScriptionSharing = () => {
               btnClassName: "bg-black text-white",
               bodyClassName: "text-[#262626]"
             }}
+            actionButton="Share"
           />
           <SubScriptionCard
             imageUrl={subscriptionIcons.subscribe}
@@ -150,6 +155,7 @@ const SubScriptionSharing = () => {
               btnClassName: "bg-white text-black",
               bodyClassName: ""
             }}
+            actionButton="Explore"
           />
         </div>
         <aside className="col-start-9 col-span-4 text-gray-700 desktop:max-w-lg [&>:not(:first-child)]:mt-8 mt-4">

@@ -11,7 +11,7 @@ export default async function clearStaleTokens(identifier: string) {
   try {
     const client = await clientPromise;
     const db = client.db();
-    const result = await db.collection('verification_tokens').deleteMany({identifier});
+    const result = await db.collection('verification_tokens').deleteMany({ expires: { $lt: new Date() }, identifier });
     console.log("Deleted ", result.deletedCount, " documents");
   } catch (error) {
     console.error(error);

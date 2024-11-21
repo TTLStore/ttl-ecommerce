@@ -22,10 +22,10 @@ async function ProtectedLayout({
     redirect("/auth/signin");
   }
   return (
-    <div className="min-h-screen max-w-[1440px] mx-auto flex ">
+    <div className="min-h-screen max-w-[1440px] mx-auto flex">
       <SideBar />
-
       <main className="flex-1 overflow-hidden">
+        hello
         {children}
       </main>
     </div>
