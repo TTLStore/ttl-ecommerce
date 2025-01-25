@@ -2,13 +2,12 @@ import { exclusiveAdvantagesIcons, howItWorksIcons, icons, subscriptionIcons } f
 import Image from 'next/image';
 import { Button } from '@/components/UI';
 import { howitwork_bg_img, READ_ABOUT_US, youtube_logo } from '@/assets';
-import clsx from 'clsx';
 import { FaPlus } from "react-icons/fa6";
 import { FaMinus } from 'react-icons/fa';
 import { cn } from '@/utils';
 import { GoArrowRight } from "react-icons/go";
-import Carousel from './Carousel';
-import { a } from 'motion/react-client';
+import { ServiceCard } from '@/components/UI';
+import { SERVICES_INFO } from '@/constants';
 const services = {
   "service": "500 Services",
   "description": "for cor-subscription"
@@ -84,9 +83,17 @@ const SearchBar = () => {
 const ServiceCards = () => {
   return (
     <div className="flex flex-col">
-      <Carousel/>
-      <div className="w-full text-center mt-20">
-        <Button className="bg-black text-white">See all subscriptions</Button>
+      {/* <Carousel/> */}
+      <div className="flex flex-wrap flex-row mobile:flex-col items-center justify-around ~gap-4/20">
+      {
+        SERVICES_INFO.map((service, index) => (
+          <ServiceCard key={index} {...service} />
+        ))
+      }
+      </div>
+      <div className="w-full text-center mt-20 *:~m-2/4 ">
+        <Button className="bg-primary text-white hover:bg-primary-normal-hover active:bg-primary-normal-active">Share your subscription</Button>
+        <Button className="border border-primary text-primary">Suggest a service</Button>
       </div>
     </div>
   )
@@ -114,11 +121,11 @@ const SubScriptionCard = ({ imageUrl, serviceName, serviceDescription, customSty
       />
 
       <h3 className="text-4xl font-bold mb-2">{serviceName}</h3>
-      <p className={clsx("flex-1 mb-4 text-lg", customStyle.bodyClassName)}>
+      <p className={cn("flex-1 mb-4 text-lg", customStyle.bodyClassName)}>
         {serviceDescription}
       </p>
 
-      <Button className={clsx("bg-black text-white w-full", customStyle.btnClassName)}>
+      <Button className={cn("bg-black text-white w-full", customStyle.btnClassName)}>
         {actionButton}
       </Button>
     </div>

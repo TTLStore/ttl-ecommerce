@@ -17,12 +17,12 @@ const SIDE_BAR = [
   },
   {
     href: "/create-pool",
-    name: "Create Pool",
+    name: "Share subscriptions",
     icon: <FaDoorOpen/>
   },
   {
     href: "/join-pool",
-    name: "Join Pool",
+    name: "Join subscription",
     icon: <FaSwimmingPool/>
   },
   {

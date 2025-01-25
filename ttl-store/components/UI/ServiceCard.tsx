@@ -18,7 +18,7 @@ function ServiceCard({
 }: ServiceCardProps) {
 
   return (
-    <div className="bg-white rounded-b-3xl min-h-[40vh] rounded-t-[6rem] shadow-md flex flex-col pb-4">
+    <div className="bg-white rounded-b-3xl min-h-[40vh] rounded-t-[6rem] shadow-md flex flex-col pb-4 max-w-[349px]">
       <div style={{
         backgroundImage: `url(${cardBackgroundImage.src})`,
         backgroundSize: 'cover',
@@ -45,8 +45,8 @@ function ServiceCard({
 
       {/* --- Card Footer --- */}
       <div className="flex justify-between items-center mt-12 px-4  ">
-        <Button size='small' className="!border !border-black !px-3 !py-2 !min-w-48" backgroundColor="bg-[#282828]" label="Subscribe" />
-        <Image className='w-auto' src="/images/logo.svg" alt="logo" width={0} height={0} />
+        <Button size='small' className="border border-black w-full mx-4" backgroundColor="bg-[#282828]" label="Subscribe" />
+        <Image className=' ~w-2/10 mobile:hidden aspect-spuare' src="/images/logo.svg" alt="logo" width={0} height={0} />
       </div>
     </div>
   )

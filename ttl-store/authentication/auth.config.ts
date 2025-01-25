@@ -4,7 +4,7 @@ import { MongoDBAdapter } from "@auth/mongodb-adapter"
 
 import NextAuth from "next-auth";
 import clientPromise from "@/db/nextAuthConnect";
-import clearStaleTokens from "@/libs/auth/clearStaleToken";
+import { User } from "next-auth"
 
 export const { auth, handlers, signIn, signOut } = NextAuth({
   secret: process.env.AUTH_SECRET,
@@ -30,6 +30,8 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
           email: profile.email,
           image: profile.picture,
           createdAt: new Date(),
+          modifiedAt: new Date(),
+          emailVerified: profile.email_verified ? new Date() : null,
         };
       }
     }),

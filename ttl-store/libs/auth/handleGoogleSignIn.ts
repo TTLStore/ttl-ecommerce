@@ -4,7 +4,7 @@ import { signIn } from "@/authentication/auth.config";
 
 export const handleGoogleSignIn = async () => {
   try {
-    await signIn("google", { redirectTo: "/profile" });
+    await signIn("google", { redirectTo: "/" });
   }
   catch (error) {
     console.error(error);

@@ -1,4 +1,5 @@
 import { SERVICES_BG_IMAGES, SERVICES_LOGOS } from "@/assets";
+import { ServiceCardProps } from "@/components/UI/ServiceCard";
 
 export const SERVICES = [
   "youtube",
@@ -6,29 +7,36 @@ export const SERVICES = [
   "icloud",
 ] as const;
 
-export const SERVICES_INFO = [
+export const SERVICES_INFO : ServiceCardProps[] = [
   {
     cardBackgroundImage: SERVICES_BG_IMAGES.youtube,
-    name: "youtube premium",
-    description: "Enjoy ad-free YouTube and YouTube Music, with offline access and background play.",
+    serviceName: "youtube premium",
+    serviceDescription: "Enjoy ad-free YouTube and YouTube Music, with offline access and background play.",
     imageUrl: SERVICES_LOGOS.youtube,
   },
   {
     cardBackgroundImage: SERVICES_BG_IMAGES.google,
-    name: "google drive",
-    description: "Store any and all files. Access your files anytime, anywhere from desktop and mobile devices. Control how files are shared.",
+    serviceName: "google drive",
+    serviceDescription: "Store any and all files. Access your files anytime, anywhere from desktop and mobile devices. Control how files are shared.",
     imageUrl: SERVICES_LOGOS.google,
   },
   {
     cardBackgroundImage: SERVICES_BG_IMAGES.icloud,
-    name: "Apple icloud service",
-    description: "Free Cloud Services Beyond Anything Offered to Date",
+    serviceName: "Apple icloud service",
+    serviceDescription: "Free Cloud Services Beyond Anything Offered to Date",
     imageUrl: SERVICES_LOGOS.icloud,
   },
  
 ] as const;
 
-export const USER_POPOVER = ["profile", "settings"] as const;
+export const USER_POPOVER = [
+  "profile",
+  "share Subscriptions",
+  "join Subscriptions",
+  "chat/support",
+  "wallet",
+  "identity and Verification"
+] as const;
 
 
 export const MAX_POOL_MEMBERS = 5;

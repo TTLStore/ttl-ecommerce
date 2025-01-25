@@ -3,6 +3,7 @@ export type UserSession = {
   email: string;
   image: string;
   userId: string;
+  emailVerified?: Date;
 };
 
 export type User = {

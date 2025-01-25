@@ -1,7 +1,6 @@
 'use client'
 
 import { SERVICES } from '@/constants'
-import { Service } from '@/types'
 import React, { useReducer } from 'react'
 import { SectionWrapper } from '@/hoc'
 import { ErrorMessage, Field, Form, Formik } from 'formik'
@@ -64,7 +63,7 @@ function PoolForm() {
           <Form className="text-[black]">
             <div className="mb-4">
               <label htmlFor="poolType" className="block text-sm font-medium text-black">
-                Pool Type
+                Subscription Service
               </label>
               <Field
                 as="select"

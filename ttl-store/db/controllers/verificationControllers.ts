@@ -2,6 +2,11 @@ import { Users, VerificationTokens } from "../models";
 import dbConnect from "../dbConnect";
 import { generateRandom32BitsString } from "@/utils";
 const verificationControllers : Record<string, CallableFunction> = {
+  /**
+   * Create a verification token for a user
+   * @param userId user's id
+   * @returns the verification token
+   */
   createVerificationToken: async (userId : string) => {
     try {
       await dbConnect();
@@ -17,10 +22,15 @@ const verificationControllers : Record<string, CallableFunction> = {
       throw error;
     }
   },
+
+  /**
+   * Verify a user's email using a token
+   * @param token the verification token
+   * @returns true if the token is valid, false otherwise
+   */
   verifyToken: async (token : string) => {
     try {
       await dbConnect();
-      console.log("Verifying token", token);
       const verificationToken = await VerificationTokens.findOne({ token });
       if (!verificationToken) {
         return false; 
