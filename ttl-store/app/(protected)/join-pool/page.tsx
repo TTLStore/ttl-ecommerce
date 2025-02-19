@@ -2,6 +2,7 @@
 
 import { SERVICES } from '@/constants'
 import { Pool } from '@/types'
+import axios from 'axios'
 import React, {useEffect, useState} from 'react'
 
 function JoinPool() {
@@ -10,8 +11,8 @@ function JoinPool() {
 
   useEffect(() => {
     const fetchPools = async () => {
-      const res = await fetch(`http://localhost:3001/pools?service=${selectedService}`)
-      const data = await res.json()
+      const res = await axios.get(`/api/pools?service=${selectedService}`)
+      const data = res.data
       setOpenPools(data)
     }
 
@@ -19,9 +20,21 @@ function JoinPool() {
       fetchPools()
     }
   }, [selectedService])
+
+  const handleFormSubmit = async (e : React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    const formData = new FormData(e.currentTarget)
+    const service = (formData.get('poolType') as string);
+
+    const res = await axios.get(`/api/pools?poolType=${service}`)
+    const data = res.data;
+    // setOpenPools(data);
+    console.log(data);
+    
+  }
   return (
     <div>
-      <form>
+      <form onSubmit={handleFormSubmit}>
         <div>
           <label htmlFor='poolType'>Pool Type</label>
           <select name='poolType'>
@@ -41,9 +54,7 @@ function JoinPool() {
         {
           openPools.map((pool : Pool) => (
             <div key={pool.id}>
-              <h3>{pool.poolType}</h3>
-              <p>{pool.createdBy}</p>
-              <p>{pool.currentMembers}</p>
+              <pre>{JSON.stringify(pool, null, 2)}</pre>
             </div>
           ))
         }

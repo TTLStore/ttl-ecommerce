@@ -1,7 +1,20 @@
 # ttl-ecommerce
 
-## Setup steps
-1. Clone the repository
-2. Run `npm install` to install all the dependencies
-3. Run `npm start` to start the server
-4. Run `npx json-server --watch db.json --port 3001` to start the json server
+# Working Logs
+
+## Feb 18, 2025
+
+### Tasks:
+- Share Subscriptions
+- Join Subscriptions
+
+### What I did:
+- Successfully create new subscription only used one call. However, the target is to use two calls. One is for when the user selects the type of service, and the other is when submitting the form. The first call will be used to get the subscription details and the second call will be used to create the subscription.
+- Successfully search for a type of service and display the results in an array.
+
+### What left to do:
+- Create a new subscription using two calls.
+- Join a subscription.
+  - Make a card for each subscription.
+  - Create a button to join a subscription.
+  - Ask for confirmation before joining a subscription.

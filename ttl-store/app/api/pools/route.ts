@@ -3,11 +3,12 @@ import { PoolMemberships, Pools } from "@/db/models";
 import { auth } from "@/authentication/auth.config";
 import dbConnect from "@/db/dbConnect";
 import { PoolMemberRole } from "@/types";
+import type { Session } from "next-auth";
 
 export async function POST(req: NextRequest) {
   // Get the user session, protect the route
-  const session = await auth();
-  if (!session) {
+  const session : Session = await auth() as Session;
+  if (!session || !session.user) {
     return new Response('Unauthorized', { status: 401 });
   }
   
@@ -17,7 +18,7 @@ export async function POST(req: NextRequest) {
     // Create a new pool
     await dbConnect();
     const newPool = new Pools({
-      createdBy: session.user.userId,
+      createdBy: session.user.id,
       poolType: body.poolType,
       maxMembers: body.maxMembers,
       isOpen: body.isOpen,
@@ -26,7 +27,7 @@ export async function POST(req: NextRequest) {
     });
 
     const newPoolMemberShip = new PoolMemberships({
-      userId: session.user.userId,
+      userId: session.user.id,
       poolId: newPool._id,
       role: PoolMemberRole.Admin,
     });
@@ -42,15 +43,24 @@ export async function POST(req: NextRequest) {
 }
 
 // TODO: Add a GET route to fetch all pools
-export async function GET() {
-  const userId = (await auth())?.user.userId;
-  if (!userId) {
+// TODO: add pagination to the GET route
+export async function GET(request: NextRequest) {
+  const session = await auth();
+  if (!session) {
     return new Response('Unauthorized', { status: 401 });
   }
 
-  await dbConnect();
-  const pools = await Pools.find({ createdBy: userId });
-  return new Response(JSON.stringify(pools), { status: 200 });
+  const searchParams = request.nextUrl.searchParams
+  const poolType = searchParams.get('poolType');
+  try {
+    await dbConnect();
+    const pools = await Pools.find({ poolType: poolType, isPublic: true });
+    return new Response(JSON.stringify(pools), { status: 200 });
+  } catch (error : any) {
+    console.error(error);
+    return new Response(`error : ${error}`, { status: 500 });
+  }
+  
 }
 // TODO: Add a GET route to fetch a single pool
 // TODO: Add a PUT route to update a pool
