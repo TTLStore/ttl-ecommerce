@@ -19,12 +19,12 @@ type Action = {
 const initialValues: PoolZodType = {
   poolType: undefined,
   maxMembers: 1,
-  isOpen: false,
-  isPublic: false,
+  isOpen: true,
+  isPublic: true,
   description: '',
 };
 
-function PoolForm() {
+function PoolForm({setIsSubmitted} : { setIsSubmitted: (value: boolean) => void }) {
   
   const [state, dispatch] = useReducer(reducer, initialValues)
   function reducer(state : PoolZodType, action : Action) : PoolZodType {
@@ -36,18 +36,20 @@ function PoolForm() {
     }
   }
 
-  const handleSubmit = async (values: PoolZodType, { setSubmitting }: {
-    setSubmitting: (isSubmitting: boolean) => void
-  }) => {
+  const handleSubmit = async (values: PoolZodType
+  ) => {
     // API call to create a new pool
+    let successfullyCreated = false;
     try {
       await axios.post('api/pools/', values);
-      alert('Pool created successfully');
+      successfullyCreated = true;
     } catch (error : any) {
       alert('Error creating pool');
+      successfullyCreated = false;
     } finally {
-      setSubmitting(false);
-      
+      if (successfullyCreated) {
+        setIsSubmitted(true);
+      }
     }
   };
 

@@ -9,17 +9,17 @@ function JoinPool() {
   const [openPools, setOpenPools] = useState<Pool[]>([])
   const [selectedService, setSelectedService] = useState<string>('')
 
-  useEffect(() => {
-    const fetchPools = async () => {
-      const res = await axios.get(`/api/pools?service=${selectedService}`)
-      const data = res.data
-      setOpenPools(data)
-    }
+  // useEffect(() => {
+  //   const fetchPools = async () => {
+  //     const res = await axios.get(`/api/pools?service=${selectedService}`)
+  //     const data = res.data
+  //     setOpenPools(data)
+  //   }
 
-    if (selectedService) {
-      fetchPools()
-    }
-  }, [selectedService])
+  //   if (selectedService) {
+  //     fetchPools()
+  //   }
+  // }, [selectedService])
 
   const handleFormSubmit = async (e : React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -28,7 +28,7 @@ function JoinPool() {
 
     const res = await axios.get(`/api/pools?poolType=${service}`)
     const data = res.data;
-    // setOpenPools(data);
+    setOpenPools(data);
     console.log(data);
     
   }

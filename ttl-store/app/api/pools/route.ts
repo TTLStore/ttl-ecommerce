@@ -54,7 +54,16 @@ export async function GET(request: NextRequest) {
   const poolType = searchParams.get('poolType');
   try {
     await dbConnect();
-    const pools = await Pools.find({ poolType: poolType, isPublic: true });
+    const pools = await Pools.aggregate([
+      {
+        $match: {
+          poolType: poolType,
+          isPublic: true,
+          isOpen: true,
+          $expr: { $lt: ["$currentMembers", "$maxMembers"] }
+        }
+      }
+    ]);
     return new Response(JSON.stringify(pools), { status: 200 });
   } catch (error : any) {
     console.error(error);

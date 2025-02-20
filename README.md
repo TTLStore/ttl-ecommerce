@@ -2,6 +2,21 @@
 
 # Working Logs
 
+## Feb 19, 2025
+
+### Tasks:
+- Share Subscriptions
+- Join Subscriptions
+
+### What I did:
+- Share Subscription:
+  - Added a new notification when successfully creating a new subscription.
+
+
+- Join Subscription:
+  - Updated query to compare the number of current numbers with the maximum number of subscribers. 
+--- 
+
 ## Feb 18, 2025
 
 ### Tasks:
