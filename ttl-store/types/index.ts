@@ -20,13 +20,16 @@ export enum Service {
 };
 
 export type Pool = {
-  id: string;
+  _id: string;
   poolType: Service;
   createdBy: string;
   createdAt: string;
   updatedAt: string;
   maxMembers: number;
   currentMembers: number;
+  description: string;
+  isOpen: boolean;
+  isPublic: boolean;
 };
 
 export enum PoolMemberRole {

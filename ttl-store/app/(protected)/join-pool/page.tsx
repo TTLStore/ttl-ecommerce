@@ -4,6 +4,7 @@ import { SERVICES } from '@/constants'
 import { Pool } from '@/types'
 import axios from 'axios'
 import React, {useEffect, useState} from 'react'
+import SubscriptionCard from '@/components/Profile/MemberPool/SubscriptionCard'
 
 function JoinPool() {
   const [openPools, setOpenPools] = useState<Pool[]>([])
@@ -53,9 +54,7 @@ function JoinPool() {
       <div>
         {
           openPools.map((pool : Pool) => (
-            <div key={pool.id}>
-              <pre>{JSON.stringify(pool, null, 2)}</pre>
-            </div>
+            <SubscriptionCard key={pool._id} poolId={pool._id} poolType={pool.poolType} maxMembers={pool.maxMembers} currentMembers={pool.currentMembers} description={pool.description} />
           ))
         }
       </div>

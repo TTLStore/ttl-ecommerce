@@ -2,6 +2,25 @@
 
 # Working Logs
 
+## Feb 24, 2025
+### Tasks:
+- Share SubScriptions
+- Join SubScriptions
+
+### What I did:
+- Share Subscription: nothing
+- Join Subscription: 
+  - Refactored API routes to use controllers.
+  - Made a card for each subscription
+  - Created a button to join a subscription
+  - Asked for confirmation before joining a subscription
+
+### What left to do:
+- Join Subscription: 
+  - Add a confirmation dialog when joining a subscription.
+  - remove the subscription that user has already joined from the list of subscriptions.
+  - add pagination to the list of subscriptions.
+
 ## Feb 19, 2025
 
 ### Tasks:
@@ -15,7 +34,17 @@
 
 - Join Subscription:
   - Updated query to compare the number of current numbers with the maximum number of subscribers. 
+
+
+### What left to do:
+- Create a new subscription using two calls.
+- Join a subscription.
+  - Make a card for each subscription.
+  - Create a button to join a subscription.
+  - Ask for confirmation before joining a subscription.
 --- 
+
+
 
 ## Feb 18, 2025
 

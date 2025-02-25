@@ -1,9 +1,8 @@
 import { NextRequest } from "next/server";
-import { PoolMemberships, Pools } from "@/db/models";
 import { auth } from "@/authentication/auth.config";
-import dbConnect from "@/db/dbConnect";
-import { PoolMemberRole } from "@/types";
 import type { Session } from "next-auth";
+
+import poolControllers from "@/db/controllers/poolControllers";
 
 export async function POST(req: NextRequest) {
   // Get the user session, protect the route
@@ -16,24 +15,7 @@ export async function POST(req: NextRequest) {
   
   try {
     // Create a new pool
-    await dbConnect();
-    const newPool = new Pools({
-      createdBy: session.user.id,
-      poolType: body.poolType,
-      maxMembers: body.maxMembers,
-      isOpen: body.isOpen,
-      isPublic: body.isPublic,
-      description: body.description,
-    });
-
-    const newPoolMemberShip = new PoolMemberships({
-      userId: session.user.id,
-      poolId: newPool._id,
-      role: PoolMemberRole.Admin,
-    });
-
-    await newPoolMemberShip.save();
-    await newPool.save();
+    await poolControllers.handlePostPool({ userId: session.user.id, body });
   } catch (error : any) {
     console.error(error);
     return new Response(`error : ${error}`, { status: 500 });
@@ -46,24 +28,13 @@ export async function POST(req: NextRequest) {
 // TODO: add pagination to the GET route
 export async function GET(request: NextRequest) {
   const session = await auth();
-  if (!session) {
+  if (!session || !session.user) {
     return new Response('Unauthorized', { status: 401 });
   }
-
   const searchParams = request.nextUrl.searchParams
   const poolType = searchParams.get('poolType');
   try {
-    await dbConnect();
-    const pools = await Pools.aggregate([
-      {
-        $match: {
-          poolType: poolType,
-          isPublic: true,
-          isOpen: true,
-          $expr: { $lt: ["$currentMembers", "$maxMembers"] }
-        }
-      }
-    ]);
+    const pools = await poolControllers.handleGetPools({ userId: session.user.id, poolType });
     return new Response(JSON.stringify(pools), { status: 200 });
   } catch (error : any) {
     console.error(error);
@@ -72,5 +43,23 @@ export async function GET(request: NextRequest) {
   
 }
 // TODO: Add a GET route to fetch a single pool
-// TODO: Add a PUT route to update a pool
 // TODO: Add a DELETE route to delete a pool
+
+// Request body: { poolId: string }
+export async function PATCH(request: NextRequest) {
+  const session = await auth();
+  if (!session || !session.user) {
+    return new Response('Unauthorized', { status: 401 });
+  }
+  // Update a pool by adding a member
+  const body = await request.json();
+  const poolId = body.poolId;
+
+  try {
+    await poolControllers.handlePatchPool({ userId: session.user.id, poolId });
+  } catch (error : any) {
+    console.error(error);
+    return new Response(`error : ${error}`, { status: 500 });
+  }
+  return new Response('ok', { status: 200 });
+}
