@@ -25,7 +25,6 @@ export async function POST(req: NextRequest) {
 }
 
 // TODO: Add a GET route to fetch all pools
-// TODO: add pagination to the GET route
 export async function GET(request: NextRequest) {
   const session = await auth();
   if (!session || !session.user) {
@@ -33,8 +32,10 @@ export async function GET(request: NextRequest) {
   }
   const searchParams = request.nextUrl.searchParams
   const poolType = searchParams.get('poolType');
+  const page = searchParams.get('page') || '1';
+  const limit = searchParams.get('limit') || '10';
   try {
-    const pools = await poolControllers.handleGetPools({ userId: session.user.id, poolType });
+    const pools = await poolControllers.handleGetPools({ userId: session.user.id, poolType , page: parseInt(page), limit: parseInt(limit) });
     return new Response(JSON.stringify(pools), { status: 200 });
   } catch (error : any) {
     console.error(error);

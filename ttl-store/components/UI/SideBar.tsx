@@ -6,6 +6,7 @@ import { FaSwimmingPool, FaDoorOpen } from "react-icons/fa";
 import { MdOutlinePayment } from "react-icons/md";
 import { usePathname } from "next/navigation";
 import { cn } from "@/utils";
+import { FaRegFolderOpen } from "react-icons/fa";
 
 const LINK_STYLE = "flex items-center p-2 text-default-color rounded-lg hover:bg-gray-100/20 group mt-2";
 
@@ -21,8 +22,13 @@ const SIDE_BAR = [
     icon: <FaDoorOpen/>
   },
   {
+    href: "/subscription-management",
+    name: "Manage subscriptions",
+    icon: <FaRegFolderOpen/>
+  },
+  {
     href: "/join-pool",
-    name: "Join subscription",
+    name: "Join subscriptions",
     icon: <FaSwimmingPool/>
   },
   {
@@ -35,7 +41,7 @@ const SIDE_BAR = [
 export default function SideBar() {
   const pathname = usePathname();
   return (
-    <aside id="default-sidebar" className="h-screen transition-transform sm:translate-x-0 bg-gray-800 min-w-60" aria-label="Sidebar">
+    <aside id="default-sidebar" className="h-screen transition-transform sm:translate-x-0 bg-gray-800 min-w-60 text-white" aria-label="Sidebar">
     <div className="h-full px-3 py-4 overflow-y-auto bg-default-blur">
        <ul className="space-y-2 font-medium divide-y-2 divide-gray-50/20">
          {

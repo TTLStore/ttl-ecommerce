@@ -31,7 +31,8 @@ const poolSchema = new mongoose.Schema({
   description: {
     type: String,
     required: true,
-  }
+  },
+  members: [{ type: mongoose.Schema.Types.ObjectId, ref: "PoolMembership" }],
 }, { timestamps: true });
 
 const Pools = mongoose.models.Pool || mongoose.model("Pool", poolSchema);

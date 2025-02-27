@@ -1,10 +1,10 @@
 import { Pools, PoolMemberships } from "../models";
 import dbConnect from "../dbConnect";
 import { PoolMemberRole } from "@/types";
+import mongoose from "mongoose";
 const poolControllers: Record<string, CallableFunction> = {
   handlePatchPool: async ({ userId, poolId }: { userId: string, poolId: string }) => {
-    // console.log("userId: ", userId);
-    // console.log("poolId: ", poolId);
+
     try {
       await dbConnect();
       const pool = await Pools.findById(poolId);
@@ -17,17 +17,18 @@ const poolControllers: Record<string, CallableFunction> = {
         throw { message: "Pool is full", status: 400 };
       }
       pool.currentMembers += 1;
+      pool.members.push(userId);
       await pool.save();
 
       // add user to poolMemberships
-      await PoolMemberships.create({ userId, poolId });
+      await PoolMemberships.create({ userId, poolId, role: PoolMemberRole.Member });
     } catch(error: any) {
     console.error("Error updating pool: ", error);
     throw error;
     }
   },
 
-  handleGetPools: async ({ userId, poolType }: { userId: string, poolType: string }) => {
+  handleGetPools: async ({ userId, poolType, page, limit }: { userId: string, poolType: string, page: number, limit : number }) => {
     try {
       await dbConnect();
       const pools = await Pools.aggregate([
@@ -38,13 +39,21 @@ const poolControllers: Record<string, CallableFunction> = {
             poolType: poolType,
             isPublic: true,
             isOpen: true,
+            // Exclude pools where the user is already a member
+            members: { $ne: new mongoose.Types.ObjectId(userId) },
             // Check if the pool is full
             $expr: { $lt: ["$currentMembers", "$maxMembers"]
              }
           }
         }
       ]);
-      return pools;
+
+      // Pagination logic
+      const startIndex = (page - 1) * limit;
+      const endIndex = startIndex + limit;
+      const paginatedPools = pools.slice(startIndex, endIndex);
+      // Return paginated pools
+      return paginatedPools;
     } catch (error: any) {
       console.error("Error fetching pools: ", error);
       throw error;

@@ -2,6 +2,22 @@
 
 # Working Logs
 
+## Feb 26, 2025
+### Tasks:
+- Share SubScriptions
+- Join SubScriptions
+### What I did:
+- Join Subscription: 
+  - Removed the subscription that user has already joined from the list of subscriptions.
+  - Added pagination to the list of subscriptions.
+- Added new section for user to manage their subscriptions.
+### What left to do:
+- Share Subscription: nothing
+- Join Subscription: 
+  - Add a confirmation dialog when joining a subscription.
+  - Test the pagination.
+- Manage Subscriptions:
+  - Load the user's subscriptions.
 ## Feb 24, 2025
 ### Tasks:
 - Share SubScriptions
