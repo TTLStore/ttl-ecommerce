@@ -42,4 +42,5 @@ export type PoolMemberShip = {
   userId: string;
   joinedAt: string;
   role: PoolMemberRole;
+  
 };
