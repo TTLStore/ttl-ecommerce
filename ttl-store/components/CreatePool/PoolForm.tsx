@@ -1,6 +1,5 @@
 'use client'
 
-import { SERVICES } from '@/constants'
 import React, { useReducer } from 'react'
 import { SectionWrapper } from '@/hoc'
 import { ErrorMessage, Field, Form, Formik } from 'formik'
@@ -9,6 +8,8 @@ import type { PoolZodType } from '@/schema/pool.schema'
 import { toFormikValidate } from 'zod-formik-adapter'
 import { MAX_POOL_MEMBERS } from '@/constants'
 import axios from 'axios'
+import { Service } from '@/types'
+import { roundToTwo } from '@/utils'
 
 type Action = {
   type: string;
@@ -16,18 +17,24 @@ type Action = {
   value: any;
 }
 
-const initialValues: PoolZodType = {
-  poolType: undefined,
-  maxMembers: 1,
-  isOpen: true,
-  isPublic: true,
-  description: '',
-};
+function calculatePricePerUser(price: number, maxMembers: number) {
+  return roundToTwo(price / maxMembers)
+}
 
-function PoolForm({setIsSubmitted} : { setIsSubmitted: (value: boolean) => void }) {
-  
+function PoolForm({ poolInfo, setIsSubmitted }: {
+  poolInfo: Service,
+  setIsSubmitted: (value: boolean) => void
+}) {
+  const initialValues: PoolZodType = {
+    poolType: poolInfo.name,
+    maxMembers: poolInfo.max_users,
+    isOpen: true,
+    isPublic: true,
+    description: '',
+  };
+
   const [state, dispatch] = useReducer(reducer, initialValues)
-  function reducer(state : PoolZodType, action : Action) : PoolZodType {
+  function reducer(state: PoolZodType, action: Action): PoolZodType {
     switch (action.type) {
       case 'SET_FIELD_VALUE':
         return { ...state, [action.field]: action.value };
@@ -41,10 +48,11 @@ function PoolForm({setIsSubmitted} : { setIsSubmitted: (value: boolean) => void 
     // API call to create a new pool
     let successfullyCreated = false;
     try {
-      await axios.post('api/pools/', values);
+      console.log('values', values);
+      await axios.post('/api/pools/', values);
       successfullyCreated = true;
-    } catch (error : any) {
-      alert('Error creating pool');
+    } catch (error: any) {
+      alert(`Error creating pool ${error}`);
       successfullyCreated = false;
     } finally {
       if (successfullyCreated) {
@@ -55,7 +63,9 @@ function PoolForm({setIsSubmitted} : { setIsSubmitted: (value: boolean) => void 
 
   return (
     <div className="max-w-md mx-auto mt-10">
-      <h1 className="text-2xl font-bold mb-6 text-black">Create a New Pool</h1>
+      <h1 className="text-2xl font-bold mb-6 text-black">Share your <span 
+        className="text-indigo-500">{poolInfo.name}</span> subscription
+      </h1>
       <Formik
         initialValues={state}
         validate={toFormikValidate(PoolSchema)}
@@ -63,29 +73,6 @@ function PoolForm({setIsSubmitted} : { setIsSubmitted: (value: boolean) => void 
       >
         {({ isSubmitting, setFieldValue }) => (
           <Form className="text-[black]">
-            <div className="mb-4">
-              <label htmlFor="poolType" className="block text-sm font-medium text-black">
-                Subscription Service
-              </label>
-              <Field
-                as="select"
-                id="poolType"
-                name="poolType"
-                onChange={(e : any) => {
-                  dispatch({ type: 'SET_FIELD_VALUE', field: 'poolType', value: e.target.value });
-                  setFieldValue('poolType', e.target.value);
-                }}
-                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-              >
-                <option defaultValue="Select a service">Select a service</option>
-                {SERVICES.map((service) => (
-                  <option key={service} value={service}>
-                    {service}
-                  </option>
-                ))}
-              </Field>
-              <ErrorMessage name="poolType" component="div" className="text-red-500 text-sm" />
-            </div>
 
             <div className="mb-4">
               <label htmlFor="maxMembers" className="block text-sm font-medium text-black">
@@ -96,7 +83,7 @@ function PoolForm({setIsSubmitted} : { setIsSubmitted: (value: boolean) => void 
                 id="maxMembers"
                 name="maxMembers"
                 value={state.maxMembers}
-                onChange={(e : any) => {
+                onChange={(e: any) => {
                   const value = parseInt(e.target.value, 10);
                   dispatch({ type: 'SET_FIELD_VALUE', field: 'maxMembers', value });
                   setFieldValue('maxMembers', value);
@@ -106,6 +93,20 @@ function PoolForm({setIsSubmitted} : { setIsSubmitted: (value: boolean) => void 
                 className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
               />
               <ErrorMessage name="maxMembers" component="div" className="text-red-500 text-sm" />
+            </div>
+            <div className="mb-4">
+              <p className="text-sm font-medium text-black">
+                Price for the service: &nbsp;
+                <span className='text-indigo-500'>
+                  ${poolInfo.price}
+                </span>
+              </p>
+              <p>
+                You get from each member: &nbsp;
+                <span className='text-indigo-500'>
+                  ${calculatePricePerUser(poolInfo.price, state.maxMembers)}
+                </span>
+              </p>
             </div>
 
             <div className="mb-4">
@@ -117,7 +118,7 @@ function PoolForm({setIsSubmitted} : { setIsSubmitted: (value: boolean) => void 
                 id="isOpen"
                 name="isOpen"
                 checked={state.isOpen}
-                onChange={(e : any) => {
+                onChange={(e: any) => {
                   const value = e.target.checked;
                   dispatch({ type: 'SET_FIELD_VALUE', field: 'isOpen', value });
                   setFieldValue('isOpen', value);
@@ -128,14 +129,14 @@ function PoolForm({setIsSubmitted} : { setIsSubmitted: (value: boolean) => void 
 
             <div className="mb-4">
               <label htmlFor="isPublic" className="block text-sm font-medium text-black">
-                Public Pool
+                If you want to make this pool public, check this box
               </label>
               <Field
                 type="checkbox"
                 id="isPublic"
                 name="isPublic"
                 checked={state.isPublic}
-                onChange={(e : any) => {
+                onChange={(e: any) => {
                   const value = e.target.checked;
                   dispatch({ type: 'SET_FIELD_VALUE', field: 'isPublic', value });
                   setFieldValue('isPublic', value);
@@ -153,7 +154,7 @@ function PoolForm({setIsSubmitted} : { setIsSubmitted: (value: boolean) => void 
                 id="description"
                 name="description"
                 value={state.description}
-                onChange={(e : any) => {
+                onChange={(e: any) => {
                   dispatch({ type: 'SET_FIELD_VALUE', field: 'description', value: e.target.value });
                   setFieldValue('description', e.target.value);
                 }}

@@ -20,10 +20,21 @@ function SubscriptionCard(
       return;
     }
 
-    console.log(poolId);
-    const res = await axios.patch(`/api/pools`, {
-      poolId,
-    })
+    try {
+      const res = await axios.patch(`/api/pools`, {
+        poolId,
+      })
+
+      if (res.status !== 200) {
+        const message = res.data.message || 'Error joining pool';
+        throw new Error(message);
+      }
+      alert('Successfully joining the subcription - go to your subscription management?');
+    } catch (error : any) {
+      console.error('Error joining pool', error);
+      alert(error);
+    }
+    
   }
 
   return (

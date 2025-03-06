@@ -2,6 +2,34 @@
 
 # Working Logs
 
+## Mar 6, 2025
+### Tasks:
+- Share SubScriptions
+
+### What I did:
+- Share Subscription:
+  - added Service Routes, allows creating, updating, and deleting services
+  - Created new routes to handle sharing subscription more intuitive using Context and subRoutes
+  
+### What left to do:
+- Manage Subscription:
+  - Show name and kind of subscription and member info
+
+
+## Mar 5, 2025
+### Tasks:
+- Share SubScriptions
+
+### What I did:
+- Share Subscription:
+  - Added route to create new services.
+  
+### What left to do:
+- Share Subscription: 
+  - Request the service type from server.
+  - Change the form based on the service type.
+
+
 ## Feb 28, 2025
 ### Tasks:
 - Share SubScriptions
