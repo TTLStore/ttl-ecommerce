@@ -7,16 +7,20 @@ import { useState } from "react";
 export default function ServiceInfo() {
   const { service, setService } = usePool();
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
+
+  // Reset all values before returning to create-pool
   const handleShareAnotherService = () => {
     setService(undefined);
     setIsSubmitted(false);
     redirect("/create-pool");
   }
 
+  // if no service is selected. This is for when user reload the page
   if (!service) {
     redirect("/create-pool");
   }
 
+  // Allow user know when the they have share their subscription successfully
   if (isSubmitted) {
     return (
       <div>
