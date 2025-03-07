@@ -71,7 +71,7 @@ function PoolList({ pools }: { pools: Pool[] }) {
     <div>
       {
         pools.map((pool: Pool) => (
-          <SubscriptionCard key={pool._id} poolId={pool._id} poolType={pool.poolType} maxMembers={pool.maxMembers} currentMembers={pool.currentMembers} description={pool.description} />
+          <SubscriptionCard key={pool._id} poolId={pool._id!} poolType={pool.poolType} maxMembers={pool.maxMembers} currentMembers={pool.currentMembers} description={pool.description} />
         ))
       }
     </div>
