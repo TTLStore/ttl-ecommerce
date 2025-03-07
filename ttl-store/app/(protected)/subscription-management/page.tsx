@@ -3,7 +3,7 @@ import React from 'react'
 import { auth } from '@/authentication/auth.config'
 import membershipControllers from '@/db/controllers/membershipControllers';
 import Link from 'next/link';
-import type { PoolMemberShip } from '@/types';
+import type { Pool, PoolMemberShip } from '@/types';
 
 async function SubscriptionManagement() {
   const session = await auth();
@@ -15,7 +15,7 @@ async function SubscriptionManagement() {
     )
   }
 
-  const subscriptions : PoolMemberShip[] = await membershipControllers.handleGetMemberships({ userId: session.user.id });
+  const subscriptions : PoolMemberShip[] = await membershipControllers.handleGetMemberships({ userId: session.user.id});
   if (!subscriptions || subscriptions.length === 0) {
     return (
       <div>
@@ -42,12 +42,17 @@ function SubscriptionCard({
 }: {
   subscription: PoolMemberShip
 }) {
+  const {
+    id, poolId, userId, role
+  } = subscription;
+  console.log(subscription);
   return (
     <div className="bg-white rounded-lg shadow-md p-6 mb-4 hover:shadow-lg transition-shadow duration-300">
       <div className="flex justify-between items-start">
         <div>
-          <h3 className="text-xl font-semibold text-gray-800 mb-2">{subscription.id}</h3>
-          <p className="text-gray-600 mb-4">{subscription.role}</p>
+          <h3 className="text-xl font-semibold text-gray-800 mb-2">Id {subscription.id}</h3>
+          <p className="text-gray-600 mb-4">Role: {subscription.role}</p>
+          <p className="text-gray-600 mb-4">Type: {(subscription.poolId as Pool).poolType}</p>
         </div>
       </div>
       <Link 

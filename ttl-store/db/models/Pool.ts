@@ -32,7 +32,7 @@ const poolSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  members: [{ type: mongoose.Schema.Types.ObjectId, ref: "PoolMembership" }],
+  members: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
 }, { timestamps: true });
 
 const Pools = mongoose.models.Pool || mongoose.model("Pool", poolSchema);

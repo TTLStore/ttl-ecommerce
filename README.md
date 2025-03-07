@@ -5,15 +5,17 @@
 ## Mar 6, 2025
 ### Tasks:
 - Share SubScriptions
+- Manage Subscription
 
 ### What I did:
 - Share Subscription:
   - added Service Routes, allows creating, updating, and deleting services
   - Created new routes to handle sharing subscription more intuitive using Context and subRoutes
+- Manage Subscription:
+  - Added components for Subscription Mangament
   
 ### What left to do:
-- Manage Subscription:
-  - Show name and kind of subscription and member info
+- Payment
 
 
 ## Mar 5, 2025

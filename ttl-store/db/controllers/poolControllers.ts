@@ -70,6 +70,7 @@ const poolControllers: Record<string, CallableFunction> = {
         isOpen: body.isOpen,
         isPublic: body.isPublic,
         description: body.description,
+        members : [userId]
       });
       const newPoolMemberShip = new PoolMemberships({
         userId,

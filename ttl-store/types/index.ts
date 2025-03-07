@@ -7,6 +7,7 @@ export type UserSession = {
 };
 
 export type User = {
+  id?: string;
   name: string;
   email: string;
   image: string;
@@ -30,6 +31,7 @@ export type Pool = {
   description: string;
   isOpen: boolean;
   isPublic: boolean;
+  members: string[] | User[];
 };
 
 export enum PoolMemberRole {
@@ -38,11 +40,12 @@ export enum PoolMemberRole {
 }
 export type PoolMemberShip = {
   id?: string;
-  poolId: string;
+  poolId: string | Pool;
   userId: string;
   joinedAt: string;
   role: PoolMemberRole;
 };
+
 
 export type Service = {
   id?: string;

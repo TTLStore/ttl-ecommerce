@@ -3,10 +3,12 @@ import mongoose from "mongoose";
 import dbConnect from "../dbConnect";
 
 const membershipControllers: Record<string, CallableFunction> = {
-  handleGetMemberships: async ({ userId }: { userId: string }) => {
+  handleGetMemberships: async ({ userId }: { userId: string}) => {
     try {
       await dbConnect();
-      const memberships = await PoolMemberships.find({ userId });
+      let memberships = await PoolMemberships.find({ userId }, {
+        poolId : 1, userId: 1, role : 1
+      }).populate("poolId", "poolType")
       return memberships;
     } catch (error: any) {
       console.error("Error fetching memberships: ", error);
@@ -14,10 +16,18 @@ const membershipControllers: Record<string, CallableFunction> = {
     }
   },
 
-  handleSingleMembership: async ({ membershipId }: { membershipId: string }) => {
+  handleSingleMembership: async ({ membershipId }: { membershipId: string}) => {
     try {
       await dbConnect();
-      const membership = await PoolMemberships.findById(new mongoose.Types.ObjectId(membershipId));
+      let membership = await PoolMemberships.findById(new mongoose.Types.ObjectId(membershipId)).populate({
+        path: "poolId",
+        populate : {
+          path: "members",
+          select: "name image email",
+          model: "User"
+        }
+      })
+      
       return membership;
     } catch (error: any) {
       console.error("Error fetching membership: ", error);
