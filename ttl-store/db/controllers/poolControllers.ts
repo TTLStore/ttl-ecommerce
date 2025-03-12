@@ -28,6 +28,14 @@ const poolControllers: Record<string, CallableFunction> = {
     }
   },
 
+  /**
+   * 
+   * @param userId
+   * @param poolType
+   * @param page
+   * @param limit
+   * @returns 
+   */
   handleGetPools: async ({ userId, poolType, page, limit }: { userId: string, poolType: string, page: number, limit : number }) => {
     try {
       await dbConnect();
@@ -48,12 +56,18 @@ const poolControllers: Record<string, CallableFunction> = {
         }
       ]);
 
+    
       // Pagination logic
       const startIndex = (page - 1) * limit;
       const endIndex = startIndex + limit;
       const paginatedPools = pools.slice(startIndex, endIndex);
+      
+      // populate 
+      const paginatedPoolsPopulated = await Pools.populate(paginatedPools, {
+        path: 'createdBy', select : 'name image'
+      })
       // Return paginated pools
-      return paginatedPools;
+      return paginatedPoolsPopulated;
     } catch (error: any) {
       console.error("Error fetching pools: ", error);
       throw error;

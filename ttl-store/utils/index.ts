@@ -25,3 +25,7 @@ export function generateRandom32BitsString() {
 export function roundToTwo(num: number) {
   return +(Math.round(Number(num + "e+2")) + "e-2");
 }
+
+export function makeDeepCopy(obj : any) : any {
+  return JSON.parse(JSON.stringify(obj))
+}

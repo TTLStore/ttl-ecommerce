@@ -29,13 +29,28 @@ export const SERVICES_INFO : ServiceCardProps[] = [
  
 ] as const;
 
-export const USER_POPOVER = [
-  "profile",
-  "share Subscriptions",
-  "join Subscriptions",
-  "chat/support",
-  "wallet",
-  "identity and Verification"
+export type UserPopover = {
+  name : string,
+  href : string
+}
+
+export const USER_POPOVER : UserPopover[] = [
+  {
+    name :"profile",
+    href : "profile"
+  },
+  {
+    name : "Share Subscriptions",
+    href : "create-pool"
+  },
+  {
+    name : "join Subscriptions",
+    href : "join-pool"
+  },
+  {
+    name : "Subscription management",
+    href : "subscription-management"
+  }
 ] as const;
 
 

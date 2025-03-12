@@ -7,6 +7,7 @@ export type UserSession = {
 };
 
 export type User = {
+  _id?:string;
   id?: string;
   name: string;
   email: string;
@@ -22,10 +23,11 @@ export enum ServiceType {
 
 export type Pool = {
   _id?: string;
+  id?: string;
   poolType: ServiceType;
-  createdBy: string;
-  createdAt: string;
-  updatedAt: string;
+  createdBy: string | User;
+  createdAt?: string;
+  updatedAt?: string;
   maxMembers: number;
   currentMembers: number;
   description: string;
@@ -40,6 +42,7 @@ export enum PoolMemberRole {
 }
 export type PoolMemberShip = {
   id?: string;
+  _id? : string;
   poolId: string | Pool;
   userId: string;
   joinedAt: string;
@@ -48,6 +51,7 @@ export type PoolMemberShip = {
 
 
 export type Service = {
+  _id?: string;
   id?: string;
   name: ServiceType;
   price: number;
