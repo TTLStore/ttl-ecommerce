@@ -2,6 +2,18 @@
 
 # Working Logs
 
+## Mar 12, 2025
+### Tasks:
+- Join Sub
+- Payment
+### What I did:
+- Join Sub: 
+  - Correctly display subscription available
+- Payment
+  - Research on how to use stripe
+### What to do next:
+- Continue research on how to use stripe, user account - connected account to accept payout
+
 ## Mar 6, 2025
 ### Tasks:
 - Share SubScriptions
