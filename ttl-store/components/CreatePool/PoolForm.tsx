@@ -17,9 +17,6 @@ type Action = {
   value: any;
 }
 
-function calculatePricePerUser(price: number, maxMembers: number) {
-  return roundToTwo(price / maxMembers)
-}
 
 function PoolForm({ poolInfo, setIsSubmitted }: {
   poolInfo: Service,
@@ -33,6 +30,13 @@ function PoolForm({ poolInfo, setIsSubmitted }: {
     description: '',
   };
 
+  
+  const calculatePrice = (price: number, maxMembers: number) : number => {
+    const pricePerMember = roundToTwo(price / (poolInfo.max_users + 1)); // including host
+    
+    return roundToTwo(price - pricePerMember * (poolInfo.max_users + 1 - maxMembers));
+  }
+  
   const [state, dispatch] = useReducer(reducer, initialValues)
   function reducer(state: PoolZodType, action: Action): PoolZodType {
     switch (action.type) {
@@ -102,10 +106,12 @@ function PoolForm({ poolInfo, setIsSubmitted }: {
                 </span>
               </p>
               <p>
-                You get from each member: &nbsp;
+                You get: &nbsp;
                 <span className='text-indigo-500'>
-                  ${calculatePricePerUser(poolInfo.price, state.maxMembers)}
+                  ${calculatePrice(poolInfo.price, state.maxMembers)}
                 </span>
+
+                 &nbsp; per month
               </p>
             </div>
 
