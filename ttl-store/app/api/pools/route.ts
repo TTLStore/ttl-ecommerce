@@ -1,13 +1,13 @@
 import { NextRequest } from "next/server";
-import { PoolMemberships, Pools } from "@/db/models";
 import { auth } from "@/authentication/auth.config";
-import dbConnect from "@/db/dbConnect";
-import { PoolMemberRole } from "@/types";
+import type { Session } from "next-auth";
+
+import poolControllers from "@/db/controllers/poolControllers";
 
 export async function POST(req: NextRequest) {
   // Get the user session, protect the route
-  const session = await auth();
-  if (!session) {
+  const session : Session = await auth() as Session;
+  if (!session || !session.user) {
     return new Response('Unauthorized', { status: 401 });
   }
   
@@ -15,24 +15,7 @@ export async function POST(req: NextRequest) {
   
   try {
     // Create a new pool
-    await dbConnect();
-    const newPool = new Pools({
-      createdBy: session.user.userId,
-      poolType: body.poolType,
-      maxMembers: body.maxMembers,
-      isOpen: body.isOpen,
-      isPublic: body.isPublic,
-      description: body.description,
-    });
-
-    const newPoolMemberShip = new PoolMemberships({
-      userId: session.user.userId,
-      poolId: newPool._id,
-      role: PoolMemberRole.Admin,
-    });
-
-    await newPoolMemberShip.save();
-    await newPool.save();
+    await poolControllers.handlePostPool({ userId: session.user.id, body });
   } catch (error : any) {
     console.error(error);
     return new Response(`error : ${error}`, { status: 500 });
@@ -42,16 +25,42 @@ export async function POST(req: NextRequest) {
 }
 
 // TODO: Add a GET route to fetch all pools
-export async function GET() {
-  const userId = (await auth())?.user.userId;
-  if (!userId) {
+export async function GET(request: NextRequest) {
+  const session = await auth();
+  if (!session || !session.user) {
     return new Response('Unauthorized', { status: 401 });
   }
-
-  await dbConnect();
-  const pools = await Pools.find({ createdBy: userId });
-  return new Response(JSON.stringify(pools), { status: 200 });
+  const searchParams = request.nextUrl.searchParams
+  const poolType = searchParams.get('poolType');
+  const page = searchParams.get('page') || '1';
+  const limit = searchParams.get('limit') || '10';
+  try {
+    const pools = await poolControllers.handleGetPools({ userId: session.user.id, poolType , page: parseInt(page), limit: parseInt(limit) });
+    return new Response(JSON.stringify(pools), { status: 200 });
+  } catch (error : any) {
+    console.error(error);
+    return new Response(`error : ${error}`, { status: 500 });
+  }
+  
 }
 // TODO: Add a GET route to fetch a single pool
-// TODO: Add a PUT route to update a pool
 // TODO: Add a DELETE route to delete a pool
+
+// Request body: { poolId: string }
+export async function PATCH(request: NextRequest) {
+  const session = await auth();
+  if (!session || !session.user) {
+    return new Response('Unauthorized', { status: 401 });
+  }
+  // Update a pool by adding a member
+  const body = await request.json();
+  const poolId = body.poolId;
+
+  try {
+    await poolControllers.handlePatchPool({ userId: session.user.id, poolId });
+  } catch (error : any) {
+    console.error(error);
+    return new Response(`error : ${error}`, { status: 500 });
+  }
+  return new Response('ok', { status: 200 });
+}

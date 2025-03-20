@@ -8,8 +8,6 @@ const poolSchema = new mongoose.Schema({
     required: true,
   },
   createdBy: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
-  createdAt: { type: Date, default: Date.now },
-  updatedAt: { type: Date, default: Date.now },
   maxMembers: {
     type: Number,
     default: MAX_POOL_MEMBERS,
@@ -33,8 +31,13 @@ const poolSchema = new mongoose.Schema({
   description: {
     type: String,
     required: true,
-  }
-});
+  },
+  verified: {
+    type: Boolean,
+    default: false
+  },
+  members: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+}, { timestamps: true });
 
 const Pools = mongoose.models.Pool || mongoose.model("Pool", poolSchema);
 

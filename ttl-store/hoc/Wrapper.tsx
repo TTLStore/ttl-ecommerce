@@ -5,7 +5,7 @@ function SectionWrapper<P extends object>(
 ): React.ComponentType<P> {
   return function Wrapper(props: P): JSX.Element {
     return (
-      <section className="relative text-gray-50 px-8" id={id}>
+      <section className="relative px-8" id={id}>
         <Component {...props} />
       </section>
     );

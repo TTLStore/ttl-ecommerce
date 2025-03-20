@@ -17,3 +17,15 @@ export const log = (message: string, color: string = 'white') => {
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
+
+export function generateRandom32BitsString() {
+  return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+}
+
+export function roundToTwo(num: number) {
+  return +(Math.round(Number(num + "e+2")) + "e-2");
+}
+
+export function makeDeepCopy(obj : any) : any {
+  return JSON.parse(JSON.stringify(obj))
+}
