@@ -1,0 +1,12 @@
+import { z } from 'zod';
+
+export const ServiceSchema = z.object({
+  name: z.string(),
+  price: z.number(),
+  currencyType: z.string(),
+  provider: z.string(),
+  max_users: z.number(),
+  description: z.string(),
+}).required();
+
+export type ServiceZodType = z.infer<typeof ServiceSchema>;

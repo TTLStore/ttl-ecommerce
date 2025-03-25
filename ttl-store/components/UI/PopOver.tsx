@@ -6,6 +6,7 @@ import { useRef, useState } from 'react';
 import { useOutSideHook } from '@/hooks';
 import { handleSignOut } from '@/libs/auth/handleSignOut';
 import type { UserPopover } from '@/constants';
+import SignOutButton from './SignOutButton';
 function PopOver({
   children,
   list,
@@ -29,7 +30,7 @@ function PopOver({
                 </Link>
               ))
             }
-            <button className="block rounded-lg py-2 px-3 transition hover:bg-gray-100 capitalize" onClick={() => handleSignOut()}>Sign Out</button>
+            <SignOutButton className="block rounded-lg py-2 px-3 transition hover:bg-gray-100 capitalize"/>
           </PopoverPanel>
     </Popover>
   )

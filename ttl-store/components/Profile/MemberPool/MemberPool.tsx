@@ -25,7 +25,7 @@ function MemberPool() {
       {
         activePools.map((pool : PoolMemberShip) => (
           <div key={pool.id} className="border border-slate-50/50 shadow-md hover:scale-105 transition p-4 rounded-md">
-            <h3>Pool Id: {pool.poolId}</h3>
+            <h3>Pool Id: {typeof pool.poolId === 'string' ? pool.poolId : ''}</h3>
             <p>Role: {pool.role}</p>
             <p>Joined at: {formatMMDDYYYY(pool.joinedAt)}</p>
           </div>

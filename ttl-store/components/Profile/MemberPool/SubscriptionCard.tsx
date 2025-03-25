@@ -8,7 +8,6 @@ function SubscriptionCard(
   props : Pool
 ) {
   const {_id, poolType, maxMembers, currentMembers, description, createdBy}  = props;
-  console.log(_id);
   const handleJoinPool = async () => {
     const answer = confirm('Are you sure you want to join this pool?');
     if (!answer) {
@@ -17,7 +16,7 @@ function SubscriptionCard(
 
     try {
       const res = await axios.patch(`/api/pools`, {
-        _id,
+        poolId: _id
       })
 
       if (res.status !== 200) {

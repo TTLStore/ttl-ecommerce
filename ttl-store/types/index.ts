@@ -33,6 +33,7 @@ export type Pool = {
   description: string;
   isOpen: boolean;
   isPublic: boolean;
+  verified: boolean;
   members: string[] | User[];
 };
 
@@ -59,16 +60,4 @@ export type Service = {
   provider: string;
   max_users: number;
   description: string;
-}
-
-export function isServiceType(obj: any): obj is Service {
-  return (
-    (typeof obj.id === 'string' || obj.id === undefined) &&
-    Object.values(ServiceType).includes(obj.name.toString().toLowerCase()) &&
-    typeof obj.price === 'number' &&
-    typeof obj.currencyType === 'string' &&
-    typeof obj.provider === 'string' &&
-    typeof obj.max_users === 'number' &&
-    typeof obj.description === 'string'
-  );
 }

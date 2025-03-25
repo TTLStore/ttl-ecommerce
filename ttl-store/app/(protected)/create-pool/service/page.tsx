@@ -30,9 +30,9 @@ export default function Service() {
       <h1 className="text-2xl font-bold mb-6 text-black">Pick your subscription</h1>
       <p>Here you can select the service you want to share with others</p>
       <div className="mt-6">
-        {services.map((service) => (
+        {services.map((service , index) => (
           <button
-            key={service.id}
+            key={index}
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2"
             onClick={() => handleSelectService(service.name)}
           >

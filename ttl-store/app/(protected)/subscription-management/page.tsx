@@ -7,15 +7,9 @@ import type { Pool, PoolMemberShip } from '@/types';
 
 async function SubscriptionManagement() {
   const session = await auth();
-  if (!session || !session.user) {
-    return (
-      <div>
-        <p>Unauthorized</p>
-      </div>
-    )
-  }
 
-  const subscriptions : PoolMemberShip[] = await membershipControllers.handleGetMemberships({ userId: session.user.id});
+  const subscriptions : PoolMemberShip[] = await membershipControllers.handleGetMemberships({ userId: session!.user!.id});
+  console.log(subscriptions);
   if (!subscriptions || subscriptions.length === 0) {
     return (
       <div>

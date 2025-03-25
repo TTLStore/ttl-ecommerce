@@ -6,7 +6,7 @@ const serviceSchema = new mongoose.Schema({
   currencyType: { type: String, required: true },
   provider: { type : String, required: true },
   max_users: { type: Number, required: true },
-  description: { type: String, required: true },
+  description: { type: String },
 }, { timestamps: true });
 
 const Services = mongoose.models.Service || mongoose.model("Service", serviceSchema);

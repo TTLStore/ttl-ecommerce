@@ -1,6 +1,4 @@
-import { PoolMemberships } from "@/db/models";
 import { auth } from "@/authentication/auth.config";
-import dbConnect from "@/db/dbConnect";
 import { HTTP_STATUS } from "@/constants";
 import { NextRequest } from "next/server";
 import membershipControllers from "@/db/controllers/membershipControllers";

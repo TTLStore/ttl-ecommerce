@@ -1,10 +1,15 @@
 "use client";
 
 import { handleSignOut } from "@/libs/auth/handleSignOut";
-import Button from "./Button";
+import { Button } from "@headlessui/react";
 
-export default function SignOutButton() {
+
+export default function SignOutButton({
+  className
+}: {
+  className : string
+}) {
   return (
-   <Button onClick={handleSignOut}>Sign Out</Button>
+   <Button className={className} onClick={() => handleSignOut()}>Sign Out</Button>
   );
 }

@@ -1,5 +1,9 @@
 import { SERVICES_BG_IMAGES, SERVICES_LOGOS } from "@/assets";
 import { ServiceCardProps } from "@/components/UI/ServiceCard";
+import { CgProfile } from "react-icons/cg";
+import { FaSwimmingPool, FaDoorOpen } from "react-icons/fa";
+import { MdOutlinePayment } from "react-icons/md";
+import { FaRegFolderOpen } from "react-icons/fa";
 
 export const SERVICES = [
   "youtube",
@@ -56,9 +60,6 @@ export const USER_POPOVER : UserPopover[] = [
 
 export const MAX_POOL_MEMBERS = 5;
 
-export const FETCH_POOLS = `http://localhost:3001/pools/`
-export const FETCH_MEMBERSHIP = `http://localhost:3001/poolMemberShips/`
-
 export enum HTTP_STATUS {
   OK = 200,
   CREATED = 201,
@@ -75,3 +76,31 @@ export enum HTTP_STATUS {
   // NOT_IMPLEMENTED = 501,
   // BAD_GATEWAY = 502
 }
+
+export const SIDE_BAR = [
+  {
+    href: "/profile",
+    name: "Profile",
+    icon: CgProfile
+  },
+  {
+    href: "/create-pool",
+    name: "Share subscriptions",
+    icon: FaDoorOpen
+  },
+  {
+    href: "/subscription-management",
+    name: "Manage subscriptions",
+    icon: FaRegFolderOpen
+  },
+  {
+    href: "/join-pool",
+    name: "Join subscriptions",
+    icon: FaSwimmingPool
+  },
+  {
+    href: "/payment",
+    name: "Payment",
+    icon: MdOutlinePayment
+  }
+];

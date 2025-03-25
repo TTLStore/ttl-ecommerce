@@ -3,7 +3,6 @@ import mongoose from "mongoose";
 
 const poolSchema = new mongoose.Schema({
   poolType: {
-    enum: SERVICES,
     type: String,
     required: true,
   },
