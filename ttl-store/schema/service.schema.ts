@@ -4,6 +4,8 @@ export const ServiceSchema = z.object({
   name: z.string(),
   price: z.number(),
   currencyType: z.string(),
+  stripePriceId: z.string().nullish(),
+  stripeProductId: z.string().nullish(),
   provider: z.string(),
   max_users: z.number(),
   description: z.string(),

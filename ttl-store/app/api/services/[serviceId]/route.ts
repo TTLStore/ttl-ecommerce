@@ -1,8 +1,7 @@
 import { HTTP_STATUS } from "@/constants";
 import { NextRequest } from "next/server";
 import serviceControllers from "@/db/controllers/serviceControllers";
-import { Service } from "@/types";
-
+import { ServiceSchema } from "@/schema/service.schema";
 // Get service by id
 export async function GET(
   request: NextRequest,
@@ -33,9 +32,9 @@ export async function PUT(
   }
   
   const body = await request.json();
-  console.log(body);
-  if (!isValidService(body)) {
-    return new Response("Invalid body", { status: HTTP_STATUS.BAD_REQUEST });
+  const serviceParseResult = ServiceSchema.safeParse(body)
+  if (!serviceParseResult.success) {
+    return new Response(JSON.stringify({message : serviceParseResult.error}), { status: HTTP_STATUS.BAD_REQUEST });
   }
 
   try {
@@ -47,25 +46,4 @@ export async function PUT(
   }
 
   //return new Response("Edit service", { status: HTTP_STATUS.OK });
-}
-
-function isValidService(body: any) {
-  // check if the body mabe contains the fields of a service but not other than these field
-  const validKeys: (keyof Service)[] = [
-    'id',
-    'name',
-    'price',
-    'currencyType',
-    'provider',
-    'max_users',
-    'description'
-  ];
-  
-  // Check if object is null/undefined or not an object
-  if (!body || typeof body !== 'object') return false;
-  
-  const objKeys = Object.keys(body);
-  
-  // Check that all present keys are in the valid set
-  return objKeys.every(key => validKeys.includes(key as keyof Service));
 }

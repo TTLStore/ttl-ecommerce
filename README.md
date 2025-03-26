@@ -2,6 +2,17 @@
 
 # Working Logs
 
+## Mar 25, 2025
+### Tasks:
+- Payment
+### What I did:
+- Implemented the payment feature using Stripe.
+- API routes: 
+  - Accounts : create stripe connected account
+  - account-links: create account link for onboarding
+  - create-checkout-sessions: create checkout session for each subscription
+  - transfers: create transfer inside Stripe Connect
+
 ## Mar 12, 2025
 ### Tasks:
 - Join Sub

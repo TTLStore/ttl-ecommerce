@@ -15,7 +15,7 @@ export async function POST(req: NextRequest) {
   
   try {
     // Create a new pool
-    await poolControllers.handlePostPool({ userId: session.user.id, body });
+    await poolControllers.handlePostPool({ userId: session.user.id!, body });
   } catch (error : any) {
     console.error(error);
     return new Response(`error : ${error}`, { status: 500 });
@@ -32,14 +32,20 @@ export async function GET(request: NextRequest) {
   }
   const searchParams = request.nextUrl.searchParams
   const poolType = searchParams.get('poolType');
+  if (!poolType) {
+    throw {
+      message: 'missing poolType',
+      status: 400
+    }
+  }
   const page = searchParams.get('page') || '1';
   const limit = searchParams.get('limit') || '10';
   try {
-    const pools = await poolControllers.handleGetPools({ userId: session.user.id, poolType , page: parseInt(page), limit: parseInt(limit) });
+    const pools = await poolControllers.handleGetPools({ userId: session.user.id!, poolType , page: parseInt(page), limit: parseInt(limit) });
     return new Response(JSON.stringify(pools), { status: 200 });
   } catch (error : any) {
     console.error(error);
-    return new Response(`error : ${error}`, { status: 500 });
+    return new Response(`error : ${error.message}`, { status: error.status || 500 });
   }
   
 }
@@ -57,7 +63,7 @@ export async function PATCH(request: NextRequest) {
   const poolId = body.poolId;
 
   try {
-    await poolControllers.handlePatchPool({ userId: session.user.id, poolId });
+    await poolControllers.handlePatchPool({ userId: session.user.id!, poolId });
   } catch (error : any) {
     console.error(error);
     return new Response(`error : ${error}`, { status: 500 });

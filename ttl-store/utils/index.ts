@@ -1,5 +1,7 @@
 import { twMerge } from "tailwind-merge";
 import { clsx, ClassValue } from "clsx";
+import { ZodError } from "zod";
+
 const isDebugMode = process.env.DEBUG === 'true';
 
 /** 
@@ -28,4 +30,19 @@ export function roundToTwo(num: number) {
 
 export function makeDeepCopy(obj : any) : any {
   return JSON.parse(JSON.stringify(obj))
+}
+
+/**
+ * Converts a Zod error into a readable string.
+ * @param error - The ZodError object.
+ * @returns A formatted string containing error messages.
+ */
+export function formatZodErrors(error: ZodError): string {
+  return error.errors
+    .map((err) => `${err.path.join(".")}: ${err.message}`)
+    .join("\n");
+}
+
+export function convert2Cents(money : number) : number {
+  return money * 100;
 }

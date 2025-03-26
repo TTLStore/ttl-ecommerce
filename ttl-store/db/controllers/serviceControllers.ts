@@ -2,9 +2,40 @@ import { Service } from "@/types";
 import dbConnect from "../dbConnect";
 import { Services } from "../models";
 import mongoose from "mongoose";
+import type { ServiceZodType } from "@/schema/service.schema";
+interface ServiceControllers {
+  /**
+   * Creates a new service.
+   * @param service - The service object to create.
+   * @returns The created service.
+   */
+  createService: (service: ServiceZodType) => Promise<ServiceZodType>;
 
-const serviceControllers = {
-  async createService(service: Service) {
+  /**
+   * Retrieves a service by its ID.
+   * @param serviceId - The ID of the service to retrieve.
+   * @returns The found service.
+   */
+  getServiceById: (serviceId: string) => Promise<ServiceZodType | null>;
+
+  /**
+   * Retrieves all services.
+   * @returns An array of services.
+   */
+  getAllServices: () => Promise<ServiceZodType[]>;
+
+  /**
+   * Updates an existing service.
+   * @param serviceId - The ID of the service to update.
+   * @param newService - The updated service object.
+   * @returns The updated service.
+   */
+  editService: (serviceId: string, newService: ServiceZodType) => Promise<ServiceZodType | null>;
+}
+
+
+const serviceControllers : ServiceControllers = {
+  async createService(service: ServiceZodType) {
     try {
       await dbConnect();
       return await Services.create(service);
@@ -33,7 +64,7 @@ const serviceControllers = {
     }
   },
 
-  async editService(serviceId: string, newService: Service) {
+  async editService(serviceId: string, newService: ServiceZodType) {
     try {
       await dbConnect();
       const id = new mongoose.Types.ObjectId(serviceId)

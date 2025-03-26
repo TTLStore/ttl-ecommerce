@@ -9,6 +9,8 @@ const poolMembershipSchema = new mongoose.Schema({
     type: String,
     enum: PoolMemberRole,
   },
+  confirmedPayment: { type: Boolean, default: false }, // true when user's payment is confirmed
+  verified: { type: Boolean, default: false }, // true if host and user has confirmed
 }, { timestamps: true });
 
 const PoolMemberships = mongoose.models.PoolMembership || mongoose.model("PoolMembership", poolMembershipSchema);

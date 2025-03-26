@@ -1,15 +1,12 @@
 import React from 'react'
 import poolControllers from '@/db/controllers/poolControllers'
-import { SERVICES } from '@/constants';
-import ServiceNotFound from './ServiceNotFound';
 import { getUser } from '@/libs/auth/getUserName';
 import type { Pool, Service } from '@/types';
-import SubscriptionCard from '@/components/Profile/MemberPool/SubscriptionCard';
+import SubscriptionCard from './SubscriptionCard';
 import { makeDeepCopy } from '@/utils';
 import Link from 'next/link';
-import serviceControllers from '@/db/controllers/serviceControllers';
 type Params = Promise<{ poolType: string }>;
-type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
+type SearchParams = Promise<{ [key: string]: string | undefined }>;
 
 async function Service(props: {
   params: Params
@@ -20,13 +17,14 @@ async function Service(props: {
   const parsedPoolType = decodeURIComponent(poolType);
   console.log(parsedPoolType);
 
-  const { page, limit } = await props.searchParams;
+  const {page, limit} = await props.searchParams;
+  
 
   // make a deep copy because nextjs shows warning that only plain object can be passed to client component, this converts ObjectId into string
   const availableServices = makeDeepCopy(await poolControllers.handleGetPools({
     userId, poolType : parsedPoolType,
-    page: page ? page : 1,
-    limit: limit ? limit : 10
+    page: page ? parseInt(page) : 1,
+    limit: limit ? parseInt(limit) : 10
   }))
   return (
     <div>

@@ -2,9 +2,40 @@ import { Pools, PoolMemberships } from "../models";
 import dbConnect from "../dbConnect";
 import { PoolMemberRole } from "@/types";
 import mongoose from "mongoose";
-const poolControllers: Record<string, CallableFunction> = {
-  handlePatchPool: async ({ userId, poolId }: { userId: string, poolId: string }) => {
 
+interface PoolControllers {
+  /**
+   * Adds a user to a pool and updates the pool's current member count.
+   * @param userId - The ID of the user joining the pool.
+   * @param poolId - The ID of the pool being joined.
+   */
+  handlePatchPool: (params: { userId: string; poolId: string }) => Promise<void>;
+
+  /**
+   * Fetches available pools that the user can join.
+   * @param userId - The ID of the user.
+   * @param poolType - The type of pool being queried.
+   * @param page - The page number for pagination.
+   * @param limit - The number of results per page.
+   * @returns A list of pools the user can join.
+   */
+  handleGetPools: (params: {
+    userId: string;
+    poolType: string;
+    page: number;
+    limit: number;
+  }) => Promise<any>;
+
+  /**
+   * Creates a new pool.
+   * @param userId - The ID of the user creating the pool.
+   * @param body - The request body containing pool details.
+   */
+  handlePostPool: (params: { userId: string; body: any }) => Promise<void>;
+}
+
+const poolControllers: PoolControllers = {
+  handlePatchPool: async ({ userId, poolId }: { userId: string, poolId: string }) => {
     try {
       await dbConnect();
       const pool = await Pools.findById(poolId);
@@ -28,14 +59,6 @@ const poolControllers: Record<string, CallableFunction> = {
     }
   },
 
-  /**
-   * 
-   * @param userId
-   * @param poolType
-   * @param page
-   * @param limit
-   * @returns 
-   */
   handleGetPools: async ({ userId, poolType, page, limit }: { userId: string, poolType: string, page: number, limit : number }) => {
     try {
       await dbConnect();
