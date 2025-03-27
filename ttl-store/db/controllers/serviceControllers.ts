@@ -31,6 +31,13 @@ interface ServiceControllers {
    * @returns The updated service.
    */
   editService: (serviceId: string, newService: ServiceZodType) => Promise<ServiceZodType | null>;
+
+  /**
+   * Delete a service in DB
+   * @param serviceId - The ID of the service to delete
+   * @returns - if success return the service, otherwise return a null
+   */
+  deleteService: (serviceId : string) => Promise<ServiceZodType>
 }
 
 
@@ -78,8 +85,27 @@ const serviceControllers : ServiceControllers = {
     } catch (error : any) {
       throw new Error(error);
     }
-  }
+  },
 
+  async deleteService(serviceId) {
+    try {
+      await dbConnect();
+      const id = new mongoose.Types.ObjectId(serviceId);
+
+      const service = await Services.findById(id);
+
+      if (!service) {
+        return null;
+      }
+
+      await Services.findByIdAndDelete(id);
+
+      return service;
+    } catch (error : any) {
+      console.error(error);
+      return null;
+    }
+  },
 };
 
 export default serviceControllers;
