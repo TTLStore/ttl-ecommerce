@@ -2,6 +2,30 @@
 
 # Working Logs
 
+## Mar 27, 2025
+### Tasks:
+- Service API
+### What I did
+- Create stripe price and product from api calls
+- Delete price and product from api calls
+
+### What left to do:
+- Update price unit correctly accross database and stripe
+  - price is the cost of the service as whole
+  - pricePerMember is the cost per member including platform's fee
+
+## Mar 26, 2025
+### Tasks:
+- Payment
+### What I did:
+- Test webhooks
+- Create products/services from api call and attach product id and price id to service object
+
+### What to complete next:
+- Make sure price is accurate when store in db and in stripe
+- When user joins a subscription, create checkout session with appropriate pricing
+- Continue user checkout and handling payment from members
+
 ## Mar 25, 2025
 ### Tasks:
 - Payment
