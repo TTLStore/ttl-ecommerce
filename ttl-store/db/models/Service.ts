@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 const serviceSchema = new mongoose.Schema({
   name: { type: String, required: true },
   price: { type: mongoose.Schema.Types.Double, required: true },
+  pricePerMember: {type: mongoose.Schema.Types.Double, require: true},
   stripePriceId: { type: String, required: true },
   stripeProductId: {type : String, required: true },
   currencyType: { type: String, required: true },
