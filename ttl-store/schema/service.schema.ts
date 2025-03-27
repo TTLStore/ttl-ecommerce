@@ -3,6 +3,7 @@ import { z } from 'zod';
 export const ServiceSchema = z.object({
   name: z.string(),
   price: z.number(),
+  pricePerMember: z.number(),
   currencyType: z.string(),
   stripePriceId: z.string().nullish(),
   stripeProductId: z.string().nullish(),
