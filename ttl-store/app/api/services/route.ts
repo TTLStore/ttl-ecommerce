@@ -22,7 +22,7 @@ export async function POST(request: NextRequest) {
     const res = await createProduct({
       name : result.data.name,
       currency: result.data.currencyType,
-      unit_amount: convert2Cents(result.data.price) ,
+      unit_amount: convert2Cents(result.data.pricePerMember) ,
       interval: 'month',
       description: result.data.description
     });
