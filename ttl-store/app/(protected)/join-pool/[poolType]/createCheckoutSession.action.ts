@@ -11,16 +11,18 @@ import createCheckoutSession from '@/libs/stripe/createCheckoutSession';
  * 
  */
 export async function createCheckout({
-  mode,
-  priceId
+  priceId,
+  mode = "subscription",
+  metadata,
 }: {
   mode: 'payment' | 'subscription' | 'setup',
-  priceId: string
+  priceId: string,
+  metadata? : any
 }) {
   let session = undefined;
 
   session = await createCheckoutSession({
-    mode, priceId
+    mode, priceId, metadata
   });
 
   redirect(session.url!) // Navigate to the new post page

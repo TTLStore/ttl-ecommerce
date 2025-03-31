@@ -8,8 +8,8 @@ import type { PoolZodType } from '@/schema/pool.schema'
 import { toFormikValidate } from 'zod-formik-adapter'
 import { MAX_POOL_MEMBERS } from '@/constants'
 import axios from 'axios'
-import { Service } from '@/types'
-import { roundToTwo } from '@/utils'
+import { calTotalRecievedFunds, calculatePricePerMember } from '@/utils'
+import { ServiceZodType } from '@/schema/service.schema'
 
 type Action = {
   type: string;
@@ -19,7 +19,7 @@ type Action = {
 
 
 function PoolForm({ poolInfo, setIsSubmitted }: {
-  poolInfo: Service,
+  poolInfo: ServiceZodType,
   setIsSubmitted: (value: boolean) => void
 }) {
   const initialValues: PoolZodType = {
@@ -29,13 +29,6 @@ function PoolForm({ poolInfo, setIsSubmitted }: {
     isPublic: true,
     description: '',
   };
-
-  
-  const calculatePrice = (price: number, maxMembers: number) : number => {
-    const pricePerMember = roundToTwo(price / (poolInfo.max_users + 1)); // including host
-    
-    return roundToTwo(price - pricePerMember * (poolInfo.max_users + 1 - maxMembers));
-  }
   
   const [state, dispatch] = useReducer(reducer, initialValues)
   function reducer(state: PoolZodType, action: Action): PoolZodType {
@@ -87,6 +80,7 @@ function PoolForm({ poolInfo, setIsSubmitted }: {
                 id="maxMembers"
                 name="maxMembers"
                 value={state.maxMembers}
+                pattern={`[1-${poolInfo.max_users}]`}
                 onChange={(e: any) => {
                   const value = parseInt(e.target.value, 10);
                   dispatch({ type: 'SET_FIELD_VALUE', field: 'maxMembers', value });
@@ -108,10 +102,22 @@ function PoolForm({ poolInfo, setIsSubmitted }: {
               <p>
                 You get: &nbsp;
                 <span className='text-indigo-500'>
-                  ${calculatePrice(poolInfo.price, state.maxMembers)}
+                  ${calTotalRecievedFunds({
+                    servicePrice: poolInfo.price,
+                    maxServiceMembers: poolInfo.max_users,
+                    targetMembers: state.maxMembers
+                  })}
                 </span>
 
                  &nbsp; per month
+                 <aside>
+                  ${calculatePricePerMember({
+                    servicePrice: poolInfo.price, 
+                    maxServiceMembers: poolInfo.max_users})} per user
+                 </aside>
+              </p>
+              <p>
+
               </p>
             </div>
 
