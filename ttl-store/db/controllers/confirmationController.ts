@@ -43,7 +43,7 @@ const confirmationController : Record<string, CallableFunction>  = {
 
       const transfaction = await Transactions.create({
         poolId,
-        hostId: userConfirm.poolId.createdBy,
+        hostId: userConfirm.poolId.hostId,
         userId,
         eligibleDate: addDays(new Date(), 30),
         amount: amount,

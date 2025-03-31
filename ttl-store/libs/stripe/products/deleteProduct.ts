@@ -2,9 +2,13 @@ import stripe from '../stripe.config';
 
 export async function deleteProduct(productId : string) {
   try {
-    await stripe.products.del(productId);
+    const res = await stripe.products.update(productId, {
+      active: false
+    });
+    
     return true;
   } catch (error : any) {
+    console.error(error);
     return false;
   }
 }

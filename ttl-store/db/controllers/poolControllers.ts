@@ -6,10 +6,12 @@ import mongoose from "mongoose";
 interface PoolControllers {
   /**
    * Adds a user to a pool and updates the pool's current member count.
+   * and create a new entry in poolMemberships
    * @param userId - The ID of the user joining the pool.
    * @param poolId - The ID of the pool being joined.
+   * @returns - true if success
    */
-  handlePatchPool: (params: { userId: string; poolId: string }) => Promise<void>;
+  handlePatchPool: (params: { userId: string; poolId: string }) => Promise<boolean>;
 
   /**
    * Fetches available pools that the user can join.
@@ -38,56 +40,62 @@ const poolControllers: PoolControllers = {
   handlePatchPool: async ({ userId, poolId }: { userId: string, poolId: string }) => {
     try {
       await dbConnect();
-      const pool = await Pools.findById(poolId);
-      if (!pool) {
-        throw { message: "Pool not found", status: 404 };
-      }
+      mongoose.connection.transaction(async () => {
+        const pool = await Pools.findById(poolId);
+        if (!pool) {
+          throw { message: "Pool not found", status: 404 };
+        }
 
-      // increase currentMembers by 1
-      if (pool.currentMembers === pool.maxMembers) {
-        throw { message: "Pool is full", status: 400 };
-      }
-      pool.currentMembers += 1;
-      pool.members.push(userId);
-      await pool.save();
+        // increase currentMembers by 1
+        if (pool.currentMembers === pool.maxMembers) {
+          throw { message: "Pool is full", status: 400 };
+        }
+        pool.currentMembers += 1;
+        pool.members.push(userId);
+        await pool.save();
 
-      // add user to poolMemberships
-      await PoolMemberships.create({ userId, poolId, role: PoolMemberRole.Member });
-    } catch(error: any) {
-    console.error("Error updating pool: ", error);
-    throw error;
+        // add user to poolMemberships
+        await PoolMemberships.create({ userId, poolId, role: PoolMemberRole.Member, confirmedPayment: false});
+      });
+
+      return true;
+
+    } catch (error: any) {
+      console.error("Error updating pool: ", error);
+      throw error;
     }
   },
 
-  handleGetPools: async ({ userId, poolType, page, limit }: { userId: string, poolType: string, page: number, limit : number }) => {
+  handleGetPools: async ({ userId, poolType, page, limit }: { userId: string, poolType: string, page: number, limit: number }) => {
     try {
       await dbConnect();
       const pools = await Pools.aggregate([
         {
           $match: {
             // Exclude pools created by the user
-            createdBy: { $ne: new mongoose.Types.ObjectId(userId)  },
+            hostId: { $ne: new mongoose.Types.ObjectId(userId) },
             poolType: poolType,
             isPublic: true,
             isOpen: true,
             // Exclude pools where the user is already a member
             members: { $ne: new mongoose.Types.ObjectId(userId) },
             // Check if the pool is full
-            $expr: { $lt: ["$currentMembers", "$maxMembers"]
-             }
+            $expr: {
+              $lt: ["$currentMembers", "$maxMembers"]
+            }
           }
         }
       ]);
 
-    
+
       // Pagination logic
       const startIndex = (page - 1) * limit;
       const endIndex = startIndex + limit;
       const paginatedPools = pools.slice(startIndex, endIndex);
-      
+
       // populate 
       const paginatedPoolsPopulated = await Pools.populate(paginatedPools, {
-        path: 'createdBy', select : 'name image'
+        path: 'hostId', select: 'name image'
       })
       // Return paginated pools
       return paginatedPoolsPopulated;
@@ -101,13 +109,13 @@ const poolControllers: PoolControllers = {
     try {
       await dbConnect();
       const newPool = new Pools({
-        createdBy: userId,
+        hostId: userId,
         poolType: body.poolType,
         maxMembers: body.maxMembers,
         isOpen: body.isOpen,
         isPublic: body.isPublic,
         description: body.description,
-        members : [userId]
+        members: [userId]
       });
       const newPoolMemberShip = new PoolMemberships({
         userId,

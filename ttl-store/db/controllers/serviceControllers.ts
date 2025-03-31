@@ -22,7 +22,7 @@ interface ServiceControllers {
    * Retrieves all services.
    * @returns An array of services.
    */
-  getAllServices: () => Promise<ServiceZodType[]>;
+  getAllServices: () => Promise<ServiceZodType[] | []>;
 
   /**
    * Updates an existing service.
@@ -38,6 +38,8 @@ interface ServiceControllers {
    * @returns - if success return the service, otherwise return a null
    */
   deleteService: (serviceId : string) => Promise<ServiceZodType>
+
+  getServiceByName: (name : string) => Promise<ServiceZodType | null>
 }
 
 
@@ -103,7 +105,29 @@ const serviceControllers : ServiceControllers = {
       return service;
     } catch (error : any) {
       console.error(error);
-      return null;
+      throw {
+        message : error.message || "Error in retreiving service by name",
+        status : error.status || 500
+      }
+    }
+  },
+
+  async getServiceByName(name) {
+    try {
+      await dbConnect();
+      const service = await Services.findOne({name});
+      
+      if (!service) {
+        return null;
+      }
+
+      return service;
+    } catch (error : any) {
+      console.error(error);
+      throw {
+        message : error.message || "Error in retreiving service by name",
+        status : error.status || 500
+      }
     }
   },
 };

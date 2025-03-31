@@ -13,24 +13,23 @@ export async function createProduct({
   currency: string,
   interval: 'day' | 'week' | 'month' | 'year'
   description: string | undefined
-}) {
+}) : Promise<{priceId : string, productId : string}> {
   try {
     const product = await stripe.products.create({
-      name, description
-    });
-  
-    const price = await stripe.prices.create({
-      currency,
-      unit_amount,
-      product: product.id, 
-      recurring : {
-        interval : interval
-      }
+      name,
+      default_price_data : {
+        unit_amount,
+        currency,
+        recurring: {
+          interval
+        }
+      },
+      description
     });
 
     return {
-      productId: product.id,
-      priceId: price.id
+      priceId: product.default_price as string,
+      productId: product.id
     }
   } catch (error : any) {
     console.error(error);

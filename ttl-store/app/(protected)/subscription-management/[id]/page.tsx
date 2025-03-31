@@ -46,7 +46,7 @@ function Card({ subscription }: { subscription: PoolMemberShip }) {
         <ul role="list" className="grid gap-x-8 gap-y-12 sm:grid-cols-2 sm:gap-y-16 xl:col-span-2">
           {
             members.length > 0 &&
-            members.map(mem => <MemberCard key={mem.userId} info={mem} ownerId={pool.createdBy.toString()} />)
+            members.map(mem => <MemberCard key={mem.userId} info={mem} ownerId={pool.hostId.toString()} />)
           }
         </ul>
       </div>

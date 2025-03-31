@@ -1,11 +1,12 @@
 'use client';
 
+import { ServiceZodType } from '@/schema/service.schema';
 import { useState, createContext, useContext } from 'react';
-import type { Service } from '@/types';
+
 const PoolContext = createContext<{
   serviceType: string;
-  service: Service | undefined;
-  setService: React.Dispatch<React.SetStateAction<Service | undefined>>;
+  service: ServiceZodType | undefined;
+  setService: React.Dispatch<React.SetStateAction<ServiceZodType | undefined>>;
 }>({
   serviceType: '',
   service: undefined,
@@ -15,7 +16,7 @@ const PoolContext = createContext<{
 export const usePool = () => useContext(PoolContext);
 export default function PoolProvider({ children }: { children: React.ReactNode }) {
   const [serviceType] = useState('');
-  const [service, setService] = useState<Service | undefined>(undefined);
+  const [service, setService] = useState<ServiceZodType | undefined>(undefined);
 
   const value = { serviceType, service, setService };
   return (

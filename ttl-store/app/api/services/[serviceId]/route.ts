@@ -56,15 +56,21 @@ export async function DELETE(req: Request, { params }: { params: Promise<{ servi
   try {
     const { serviceId } = await params;
 
-    const service = await serviceControllers.deleteService(serviceId);
+   const service = await serviceControllers.deleteService(serviceId);
 
-    if (service.stripeProductId)
-      await deleteProduct(service.stripeProductId);
+   if (!service)
+      throw {
+        message: 'Product does not exist',
+        status: 404
+      }
+
+   if (service.stripeProductId)
+     await deleteProduct(service.stripeProductId);
 
     return new Response(JSON.stringify({
-      message:
-        "OK"
-    }), { status: 200 })
+      message:'ok'
+    }), { status: 200 });
+
   } catch (error: any) {
     console.error(error);
     return new Response(JSON.stringify({

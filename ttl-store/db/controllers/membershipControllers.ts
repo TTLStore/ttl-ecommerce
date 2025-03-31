@@ -1,8 +1,15 @@
 import { PoolMemberships } from "../models";
 import mongoose from "mongoose";
 import dbConnect from "../dbConnect";
+import { PoolMemberShip } from "@/types";
 
-const membershipControllers: Record<string, CallableFunction> = {
+interface MemberShipControllers  {
+  handleGetMemberships({ userId }: { userId: string}) : Promise<PoolMemberShip[]>,
+  handleSingleMembership({ membershipId }: { membershipId: string}) : Promise<any>,
+  // handleUpdateMembership({ userId } : { userId: string}) : Promise<boolean>
+}
+
+const membershipControllers: MemberShipControllers = {
   handleGetMemberships: async ({ userId }: { userId: string}) => {
     try {
       await dbConnect();
@@ -33,7 +40,15 @@ const membershipControllers: Record<string, CallableFunction> = {
       console.error("Error fetching membership: ", error);
       throw error;
     }
-  }
+  },
+
+  // async handleUpdateMembership({ membershipId }) {
+  //   try {
+  //     await dbConnect();
+  //     await PoolMemberships.findOneAndUpdate({userId : user})
+  //   }
+  // },
+
 };
 
 export default membershipControllers;

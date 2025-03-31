@@ -24,8 +24,8 @@ export enum ServiceType {
 export type Pool = {
   _id?: string;
   id?: string;
-  poolType: ServiceType;
-  createdBy: string | User;
+  poolType: string;
+  hostId: string | User;
   createdAt?: string;
   updatedAt?: string;
   maxMembers: number;

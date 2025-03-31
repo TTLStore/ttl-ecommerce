@@ -2,11 +2,8 @@ import { MAX_POOL_MEMBERS, SERVICES } from "@/constants";
 import mongoose from "mongoose";
 
 const poolSchema = new mongoose.Schema({
-  poolType: {
-    type: String,
-    required: true,
-  },
-  createdBy: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+  poolType: { type : String, required: true},
+  hostId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
   maxMembers: {
     type: Number,
     default: MAX_POOL_MEMBERS,
